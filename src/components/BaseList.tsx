@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 
-export class BaseList extends Component<{ test: string, notes: Array<string>, onUpdate: (notes: string[]) => void }, {currentNote: string, notes: Array<string>}> {
-    constructor(props: Readonly<{ test: string; notes: Array<string>, onUpdate: (notes: string[]) => void }> | { test: string; notes: Array<string>, onUpdate: (notes: string[]) => void }) {
+export class BaseList extends Component<IBaseListProps, IBaseListState> {
+    constructor(props: Readonly<IBaseListProps> | IBaseListProps) {
         super(props);
 
         this.state = {
@@ -16,7 +16,7 @@ export class BaseList extends Component<{ test: string, notes: Array<string>, on
                 <p>{this.props.test}</p>
                 <ul>
                     {
-                        this.props.notes.map((n, i) => {
+                        this.state.notes.map((n, i) => {
                             return <li key={i}>{n}</li>;
                         })
                     }
@@ -27,7 +27,7 @@ export class BaseList extends Component<{ test: string, notes: Array<string>, on
                     placeholder={'add some note text'}
                 />
                 <button
-                    onClick={(evt) => {
+                    onClick={() => {
                         this.setState((oldState) => {
                             oldState.notes.push(oldState.currentNote);
 
@@ -45,4 +45,15 @@ export class BaseList extends Component<{ test: string, notes: Array<string>, on
             </div>
         );
     }
+}
+
+interface IBaseListProps {
+    test: string;
+    notes: Array<string>;
+    onUpdate: (notes: string[]) => void;
+}
+
+interface IBaseListState {
+    currentNote: string;
+    notes: Array<string>;
 }
