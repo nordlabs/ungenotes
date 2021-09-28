@@ -1,6 +1,6 @@
 {
-  "name": "test2",
-  "productName": "test2",
+  "name": "ungenotes",
+  "productName": "ungenotes",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": ".webpack/main",
@@ -21,7 +21,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "test2"
+            "name": "ungenotes"
           }
         },
         {
