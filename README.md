@@ -24,3 +24,11 @@ Please note that we use the style of [conventional commits](https://www.conventi
 They provide several benefits over generic commit styles, such as the possibility to base versioning on them.
 
 If you want to contribute to this project, please adhere to the conventional commit rules.
+
+### Branches
+The active branch for development is the corresponding branch `development`.
+It is used as a merge target for other, feature related merges and merge requests.
+It can, but not necessarily should, be used by project members for development.
+
+The `development` branch is then merged from time to time into the `main` branch.
+This should be done via a merge request that should be approved by at least one other person.
