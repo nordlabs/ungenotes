@@ -29,10 +29,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './style/index.css';
-import {App} from "./components/App";
+import {App} from './components/App';
+import {Provider} from 'react-redux';
+import {store} from './redux/store';
 
 ReactDOM.render(
-    <App />,
+    <Provider store={store}>
+        <App />
+    </Provider>,
     document.getElementById('container')
 );
 

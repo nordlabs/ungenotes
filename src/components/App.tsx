@@ -1,19 +1,12 @@
-import {BaseList} from "./BaseList";
-import React, {Component} from "react";
-import {Store} from "../util/Store";
+import BaseList from './BaseList';
+import React, {Component, ReactNode} from 'react';
 
 export class App extends Component {
-    private store = Store.getInstance<{notes: string[]}>('data');
-
-    public render() {
+    public render(): ReactNode {
         return (
             <div>
                 <h1>Unge Notes</h1>
-                <BaseList
-                    test={'Add some notes!'}
-                    notes={this.store.get("notes") ?? []}
-                    onUpdate={(notes) => this.store.set('notes', notes)}
-                />
+                <BaseList />
             </div>
         );
     }

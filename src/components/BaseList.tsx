@@ -1,44 +1,36 @@
-import React, {Component} from "react";
+import React, {Component} from 'react';
+import {connect, ConnectedProps} from 'react-redux';
+import {RootState} from '../redux/store';
+import {addNote, setCurrentNote} from '../redux/baseListSlice';
 
-export class BaseList extends Component<IBaseListProps, IBaseListState> {
+class BaseList extends Component<IBaseListProps> {
     constructor(props: Readonly<IBaseListProps> | IBaseListProps) {
         super(props);
 
         this.state = {
+            notes: props.notes,
             currentNote: '',
-            notes: props.notes ?? [],
         };
     }
 
     public render() {
         return (
             <div>
-                <p>{this.props.test}</p>
                 <ul>
                     {
-                        this.state.notes.map((n, i) => {
+                        this.props.notes.map((n, i) => {
                             return <li key={i}>{n}</li>;
                         })
                     }
                 </ul>
                 <input
-                    value={this.state.currentNote}
-                    onChange={(evt) => this.setState({currentNote: evt.target.value})}
+                    value={this.props.currentNote}
+                    onChange={(evt) => this.props.setCurrentNote(evt.target.value)}
                     placeholder={'add some note text'}
                 />
                 <button
-                    onClick={() => {
-                        this.setState((oldState) => {
-                            oldState.notes.push(oldState.currentNote);
-
-                            return {
-                                currentNote: '',
-                                notes: oldState.notes,
-                            };
-                        }, () => {
-                            this.props.onUpdate(this.state.notes);
-                        });
-                    }}
+                    onClick={this.props.addNote}
+                    disabled={!this.props.currentNote}
                 >
                     Add
                 </button>
@@ -47,13 +39,23 @@ export class BaseList extends Component<IBaseListProps, IBaseListState> {
     }
 }
 
-interface IBaseListProps {
-    test: string;
-    notes: Array<string>;
-    onUpdate: (notes: string[]) => void;
-}
+const connector = connect(
+    (state: RootState) => {
+        return {
+            notes: state.baseList.notes,
+            currentNote: state.baseList.currentNote
+        };
+    },
+    (dispatch) => {
+        return {
+            addNote: () => dispatch(addNote()),
+            setCurrentNote: (note: string) => dispatch(setCurrentNote(note)),
+        };
+    },
+);
 
-interface IBaseListState {
-    currentNote: string;
-    notes: Array<string>;
-}
+type BaseListProps = ConnectedProps<typeof connector>;
+
+type IBaseListProps = BaseListProps
+
+export default connector(BaseList);
