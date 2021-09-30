@@ -10,10 +10,20 @@ yarn install
 ```
 
 This installs all the necessary dependencies.
+
+As we're using [sass](https://sass-lang.com/) instead of plain css, `sass` must also be installed on the development system.
+It can be installed via 
+
+```bash
+npm install -g sass
+```
+
+or by following the [other official instructions](https://sass-lang.com/install).
+
 Now, start the electron app with
 
 ```bash
-yarn start
+yarn run start
 ```
 
 That's it. Now, you can start editing the code, e.g. in _VS Code_ or _Webstorm_, and enjoy the live reloading.

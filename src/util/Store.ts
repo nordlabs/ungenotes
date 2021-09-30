@@ -1,6 +1,6 @@
-import * as electron from "electron";
-import * as fs from "fs";
-import * as path from "path";
+import * as electron from 'electron';
+import * as fs from 'fs';
+import * as path from 'path';
 
 export class Store<T extends {[key: string]: any} = {}> {
     private static instances: {[name: string]: Store} = {};
@@ -16,7 +16,7 @@ export class Store<T extends {[key: string]: any} = {}> {
         let homeDir = '';
 
         if (electron.ipcRenderer) {
-            homeDir = electron.ipcRenderer.sendSync('getHomeDir')
+            homeDir = electron.ipcRenderer.sendSync('getHomeDir');
         } else {
             homeDir = electron.app.getPath('userData');
         }
@@ -38,12 +38,12 @@ export class Store<T extends {[key: string]: any} = {}> {
         return this.instances[name] as Store<T>;
     }
 
-    public set(key: keyof T, value: any) {
+    public set(key: keyof T, value: any): void {
         this.data[key] = value;
         this.save();
     }
 
-    public setPartial(partial: Partial<T>) {
+    public setPartial(partial: Partial<T>): void {
         this.data = {
             ...this.data,
             ...partial,

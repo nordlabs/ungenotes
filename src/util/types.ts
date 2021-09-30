@@ -1,4 +1,4 @@
-type Note = {
+interface INote {
     /** unique note id */
     id: number;
     /** title of this note */
@@ -11,20 +11,20 @@ type Note = {
     watchedUntil?: number;
     dateCreated: Date;
     lastModified: Date;
-    tags?: Tag[];
+    tags?: ITag[];
     deleted?: boolean;
-};
+}
 
-type Tag = {
+interface ITag {
     /** unique tag name */
     name: string;
     /** color hex code */
     color: string;
-};
+}
 
-type Category = {
+interface ICategory {
     /** category title */
     title: string;
     /** the notes of this category */
-    notes: Note[];
-};
+    notes: INote[];
+}
