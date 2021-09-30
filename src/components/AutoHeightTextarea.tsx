@@ -1,9 +1,9 @@
-import React, {ChangeEvent, Component, TextareaHTMLAttributes} from 'react';
+import React, {ChangeEvent, Component, ReactNode, TextareaHTMLAttributes} from 'react';
 
 export class AutoHeightTextarea extends Component<IAutoHeightTextareaProps> {
     private element: HTMLTextAreaElement;
 
-    public render() {
+    public render(): ReactNode {
         return (
             <textarea
                 ref={(i) => {
@@ -14,16 +14,9 @@ export class AutoHeightTextarea extends Component<IAutoHeightTextareaProps> {
                     }
                 }}
                 value={this.props.value}
-                onChange={(evt) => {
-                    this.props.onChange(evt);
-                    this.calcHeight();
-                }}
+                onChange={this.props.onChange}
                 onKeyDown={this.props.onKeyDown}
-                onPaste={(evt) => {
-                    this.props.onPaste(evt);
-
-                    setTimeout(() => this.calcHeight(), 20);
-                }}
+                onPaste={this.props.onPaste}
                 onPasteCapture={this.props.onPasteCapture}
             />
         );
@@ -35,14 +28,18 @@ export class AutoHeightTextarea extends Component<IAutoHeightTextareaProps> {
         this.element.style.height = this.element.scrollHeight + 'px';
     }
 
-    public componentDidMount() {
+    public componentDidMount(): void {
+        this.calcHeight();
+    }
+
+    public componentDidUpdate(): void {
         this.calcHeight();
     }
 }
 
 interface IAutoHeightTextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement>{
     value: string;
-    onChange: (evt: ChangeEvent<HTMLTextAreaElement>) => any;
+    onChange: (evt: ChangeEvent<HTMLTextAreaElement>) => void;
     textareaRef?: (instance: HTMLTextAreaElement) => void;
     className?: string | undefined;
 }
