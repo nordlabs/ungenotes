@@ -31,6 +31,10 @@ export class AutoHeightTextarea extends Component<IAutoHeightTextareaProps> {
 
     public componentDidMount(): void {
         this.calcHeight();
+
+        window.addEventListener('resize', () => {
+            this.calcHeight();
+        });
     }
 
     public componentDidUpdate(): void {
