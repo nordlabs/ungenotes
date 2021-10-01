@@ -12,7 +12,7 @@ class Note extends Component<NoteProps> {
     private descriptionContainer: HTMLTextAreaElement;
     private linkContainer: HTMLInputElement;
 
-    private ctrlKeyMap: {[key: string]: HTMLElement|((evt: KeyboardEvent<HTMLDivElement>) => void)} = {};
+    private readonly ctrlKeyMap: {[key: string]: HTMLElement|((evt: KeyboardEvent<HTMLDivElement>) => void)} = {};
 
     constructor(props: Readonly<NoteProps> | NoteProps) {
         super(props);
@@ -34,6 +34,7 @@ class Note extends Component<NoteProps> {
             <div
                 className={classNames('note')}
                 ref={(i) => this.container = i}
+                data-note={this.props.note.id}
                 onKeyDown={(evt) => {
                     if (evt.ctrlKey && evt.key in this.ctrlKeyMap) {
                         const val = this.ctrlKeyMap[evt.key];
@@ -58,6 +59,7 @@ class Note extends Component<NoteProps> {
                         this.ctrlKeyMap['t'] = i;
                     }}
                     className={'title'}
+                    placeholder={'title'}
                     value={this.props.note.title}
                     onChange={(evt) => this.props.setTitle(evt.target.value)}
                     onKeyDown={(evt) => {
@@ -75,6 +77,7 @@ class Note extends Component<NoteProps> {
                         this.ctrlKeyMap['d'] = i;
                     }}
                     className={classNames('description')}
+                    placeholder={'description'}
                     value={this.props.note.description ?? ''}
                     onPaste={async (evt) => {
                         if (!navigator || !navigator.clipboard) {
