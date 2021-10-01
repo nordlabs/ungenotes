@@ -1,0 +1,22 @@
+.category {
+  .add-note {
+    margin-top: 5px;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+
+    button {
+      visibility: hidden;
+      border: 1px dashed grey;
+      border-radius: 5px;
+      padding: 5px 15px;
+      background-color: #f8f8f8;
+      cursor: pointer;
+    }
+
+    &:hover button {
+      visibility: visible;
+    }
+  }
+}

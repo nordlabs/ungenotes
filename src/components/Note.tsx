@@ -2,7 +2,7 @@ import React, {Component, KeyboardEvent} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {RootState} from '../redux/store';
 import classNames from 'classnames';
-import {changeDescriptionOfNote, changeLinkOfNote, changeTitleOfNote} from '../redux/dataSlice';
+import {changeDescriptionOfNote, changeLinkOfNote, changeTitleOfNote, removeNote} from '../redux/dataSlice';
 import {AutoHeightTextarea} from './AutoHeightTextarea';
 import {shell} from 'electron';
 
@@ -12,7 +12,7 @@ class Note extends Component<NoteProps> {
     private descriptionContainer: HTMLTextAreaElement;
     private linkContainer: HTMLInputElement;
 
-    private ctrlKeyMap: {[key: string]: HTMLElement|((evt: KeyboardEvent<HTMLDivElement>) => void)} = {};
+    private readonly ctrlKeyMap: {[key: string]: HTMLElement|((evt: KeyboardEvent<HTMLDivElement>) => void)} = {};
 
     constructor(props: Readonly<NoteProps> | NoteProps) {
         super(props);
@@ -23,6 +23,9 @@ class Note extends Component<NoteProps> {
                     shell.openExternal(this.props.note.link);
                 }
             },
+            'Delete': () => {
+                this.props.removeNote();
+            },
         };
     }
 
@@ -31,6 +34,7 @@ class Note extends Component<NoteProps> {
             <div
                 className={classNames('note')}
                 ref={(i) => this.container = i}
+                data-note={this.props.note.id}
                 onKeyDown={(evt) => {
                     if (evt.ctrlKey && evt.key in this.ctrlKeyMap) {
                         const val = this.ctrlKeyMap[evt.key];
@@ -43,12 +47,19 @@ class Note extends Component<NoteProps> {
                     }
                 }}
             >
+                <span
+                    className={classNames('remove')}
+                    onClick={this.props.removeNote}
+                >
+                    <span>Delete</span>
+                </span>
                 <input
                     ref={(i) => {
                         this.titleContainer = i;
                         this.ctrlKeyMap['t'] = i;
                     }}
                     className={'title'}
+                    placeholder={'title'}
                     value={this.props.note.title}
                     onChange={(evt) => this.props.setTitle(evt.target.value)}
                     onKeyDown={(evt) => {
@@ -58,6 +69,7 @@ class Note extends Component<NoteProps> {
                             evt.preventDefault();
                         }
                     }}
+                    spellCheck={false}
                 />
                 <AutoHeightTextarea
                     textareaRef={(i: HTMLTextAreaElement) => {
@@ -65,6 +77,7 @@ class Note extends Component<NoteProps> {
                         this.ctrlKeyMap['d'] = i;
                     }}
                     className={classNames('description')}
+                    placeholder={'description'}
                     value={this.props.note.description ?? ''}
                     onPaste={async (evt) => {
                         if (!navigator || !navigator.clipboard) {
@@ -137,6 +150,7 @@ class Note extends Component<NoteProps> {
                             evt.preventDefault();
                         }
                     }}
+                    spellCheck={false}
                 />
                 {
                     this.props.note.link ?
@@ -181,6 +195,7 @@ const connector = connect(
             setTitle: (title: string) => dispatch(changeTitleOfNote({note: ownProps.note, newTitle: title})),
             setDescription: (description: string) => dispatch(changeDescriptionOfNote({note: ownProps.note, newDescription: description})),
             setLink: (link: string) => dispatch(changeLinkOfNote({note: ownProps.note, link})),
+            removeNote: () => dispatch(removeNote({note: ownProps.note})),
         };
     },
 );

@@ -1,28 +1,23 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {Store} from '../util/Store';
 
-const store = Store.getInstance<{categories: ICategory[], tags: ITag[]}>('data');
-
-interface IDataState {
-    categories: ICategory[],
-    tags: ITag[],
-}
+const store = Store.getInstance<IData>('data');
 
 const valueOrUndefinedIfEmpty = (val: string): string => {
     return val && val.trim() !== '' ? val : undefined;
 };
 
 export const dataSlice = createSlice<
-    IDataState,
+    IData,
     {
-        addNoteToCategory: (state: IDataState, more: {payload: {note: INote, category: ICategory}}) => void,
-        removeNoteFromCategory: (state: IDataState, more: {payload: {note: INote, category: ICategory}}) => void,
-        moveNoteFromCategoryToCategory: (state: IDataState, more: {payload: {note: INote, fromCategory: ICategory, toCategory: ICategory}}) => void
-        addCategory: (state: IDataState, more: {payload: {category: ICategory}}) => void,
-        renameCategory: (state: IDataState, more: {payload: {category: ICategory, newName: string}}) => void,
-        changeTitleOfNote: (state: IDataState, more: {payload: {note: INote, newTitle: string}}) => void,
-        changeDescriptionOfNote: (state: IDataState, more: {payload: {note: INote, newDescription: string}}) => void,
-        changeLinkOfNote: (state: IDataState, more: {payload: {note: INote, link: string}}) => void,
+        addNoteToCategory: (state: IData, more: {payload: {note: INote, category: ICategory}}) => void,
+        removeNote: (state: IData, more: {payload: {note: INote}}) => void,
+        moveNoteFromCategoryToCategory: (state: IData, more: {payload: {note: INote, fromCategory: ICategory, toCategory: ICategory}}) => void
+        addCategory: (state: IData, more: {payload: {category: ICategory}}) => void,
+        renameCategory: (state: IData, more: {payload: {category: ICategory, newName: string}}) => void,
+        changeTitleOfNote: (state: IData, more: {payload: {note: INote, newTitle: string}}) => void,
+        changeDescriptionOfNote: (state: IData, more: {payload: {note: INote, newDescription: string}}) => void,
+        changeLinkOfNote: (state: IData, more: {payload: {note: INote, link: string}}) => void,
     }
     >
 ({
@@ -32,11 +27,21 @@ export const dataSlice = createSlice<
         tags: store.get('tags') ?? [],
     },
     reducers: {
-        addNoteToCategory: () => {
-            console.log('addNoteToCategory reducer called');
+        addNoteToCategory: (state, more) => {
+            const category = state.categories.find((c) => c.id === more.payload.category.id);
+
+            category.notes.push(more.payload.note);
+            store.setPartial(state);
         },
-        removeNoteFromCategory: () => {
-            console.log('removeNoteFromCategory reducer called');
+        removeNote: (state, more) => {
+            state.categories.forEach((c) => {
+                const note = c.notes.find((n) => n.id === more.payload.note.id);
+
+                if (note) {
+                    c.notes = c.notes.filter((n) => n.id !== more.payload.note.id);
+                }
+            });
+            store.setPartial(state);
         },
         moveNoteFromCategoryToCategory: () => {
             console.log('moveNoteFromCategoryToCategory reducer called');
@@ -55,7 +60,7 @@ export const dataSlice = createSlice<
                     note.title = valueOrUndefinedIfEmpty(more.payload.newTitle);
                 }
             });
-            store.set('categories', state.categories);
+            store.setPartial(state);
         },
         changeDescriptionOfNote: (state, more) => {
             state.categories.forEach((c) => {
@@ -65,7 +70,7 @@ export const dataSlice = createSlice<
                     note.description = valueOrUndefinedIfEmpty(more.payload.newDescription);
                 }
             });
-            store.set('categories', state.categories);
+            store.setPartial(state);
         },
         changeLinkOfNote: (state, more) => {
             state.categories.forEach((c) => {
@@ -75,11 +80,11 @@ export const dataSlice = createSlice<
                     note.link = valueOrUndefinedIfEmpty(more.payload.link);
                 }
             });
-            store.set('categories', state.categories);
+            store.setPartial(state);
         },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { addNoteToCategory, removeNoteFromCategory, moveNoteFromCategoryToCategory, addCategory, renameCategory, changeTitleOfNote, changeDescriptionOfNote, changeLinkOfNote } = dataSlice.actions;
+export const { addNoteToCategory, removeNote, moveNoteFromCategoryToCategory, addCategory, renameCategory, changeTitleOfNote, changeDescriptionOfNote, changeLinkOfNote } = dataSlice.actions;
 export const dataSliceReducer = dataSlice.reducer;
