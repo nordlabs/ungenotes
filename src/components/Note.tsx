@@ -2,7 +2,7 @@ import React, {Component, KeyboardEvent} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {RootState} from '../redux/store';
 import classNames from 'classnames';
-import {changeDescriptionOfNote, changeLinkOfNote, changeTitleOfNote} from '../redux/dataSlice';
+import {changeDescriptionOfNote, changeLinkOfNote, changeTitleOfNote, removeNote} from '../redux/dataSlice';
 import {AutoHeightTextarea} from './AutoHeightTextarea';
 import {shell} from 'electron';
 
@@ -22,6 +22,9 @@ class Note extends Component<NoteProps> {
                 if (this.props.note.link) {
                     shell.openExternal(this.props.note.link);
                 }
+            },
+            'Delete': () => {
+                this.props.removeNote();
             },
         };
     }
@@ -43,6 +46,12 @@ class Note extends Component<NoteProps> {
                     }
                 }}
             >
+                <span
+                    className={classNames('remove')}
+                    onClick={this.props.removeNote}
+                >
+                    <span>Delete</span>
+                </span>
                 <input
                     ref={(i) => {
                         this.titleContainer = i;
@@ -58,6 +67,7 @@ class Note extends Component<NoteProps> {
                             evt.preventDefault();
                         }
                     }}
+                    spellCheck={false}
                 />
                 <AutoHeightTextarea
                     textareaRef={(i: HTMLTextAreaElement) => {
@@ -137,6 +147,7 @@ class Note extends Component<NoteProps> {
                             evt.preventDefault();
                         }
                     }}
+                    spellCheck={false}
                 />
                 {
                     this.props.note.link ?
@@ -181,6 +192,7 @@ const connector = connect(
             setTitle: (title: string) => dispatch(changeTitleOfNote({note: ownProps.note, newTitle: title})),
             setDescription: (description: string) => dispatch(changeDescriptionOfNote({note: ownProps.note, newDescription: description})),
             setLink: (link: string) => dispatch(changeLinkOfNote({note: ownProps.note, link})),
+            removeNote: () => dispatch(removeNote({note: ownProps.note})),
         };
     },
 );

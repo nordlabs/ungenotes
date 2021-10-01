@@ -18,6 +18,7 @@ export class AutoHeightTextarea extends Component<IAutoHeightTextareaProps> {
                 onKeyDown={this.props.onKeyDown}
                 onPaste={this.props.onPaste}
                 onPasteCapture={this.props.onPasteCapture}
+                spellCheck={this.props.spellCheck}
             />
         );
     }
