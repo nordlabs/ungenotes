@@ -1,8 +1,6 @@
 .note {
   display: flex;
   flex-direction: column;
-  //border: 1px solid grey;
-  //border-radius: 5px;
   padding: 8px 10px;
   margin-bottom: 10px;
   position: relative;
@@ -44,7 +42,6 @@
 
     span {
       visibility: hidden;
-      //background-color: #f8f8f8;
       border-radius: 5px;
       padding: 8px;
     }
