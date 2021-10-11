@@ -1,0 +1,144 @@
+//try different color schemes, TODO delete obsolete later
+$dark-olive-green: rgba(96, 108, 56, 1);
+$charleston-green: rgba(40, 54, 24, 1);
+$cornsilk: rgba(254, 250, 224, 1);
+$fawn: rgba(221, 161, 94, 1);
+$liver-dogs: rgba(188, 108, 37, 1);
+
+$midnight-green-eagle-green: rgba(0, 78, 100, 1);
+$cerulean-crayola: rgba(0, 165, 207, 1);
+$aquamarine: rgba(159, 255, 203, 1);
+$persian-green: rgba(37, 161, 142, 1);
+$light-green: rgba(122, 229, 130, 1);
+
+$cultured: rgba(248, 249, 250, 1);
+$cultured-2: rgba(233, 236, 239, 1);
+$gainsboro: rgba(222, 226, 230, 1);
+$light-gray: rgba(206, 212, 218, 1);
+$cadet-blue-crayola: rgba(173, 181, 189, 1);
+$slate-gray: rgba(108, 117, 125, 1);
+$davys-grey: rgba(73, 80, 87, 1);
+$gunmetal: rgba(52, 58, 64, 1);
+
+
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-decoration: none;
+}
+
+.sidebar {
+  position: fixed;
+  left: -250px;
+  //left:0;
+  top:0;
+  width: 200px;
+  height: 100%;
+  border-right: 1px solid rgba(108, 117, 125, 0.1);
+  background: $gainsboro;
+  transition: all .5s ease;
+  header {
+    font-size: 22px;
+    font-weight:800;
+    color: $charleston-green;
+    line-height: 100px;
+    text-align: center;
+    background: $gainsboro;
+    user-select: none;
+  }
+  h6{
+    display: block;
+    height: 100%;
+    width: 100%;
+    line-height: 65px;
+    font-size: 10px;
+    letter-spacing:0.2em;
+    color: $charleston-green;
+    padding-left: 40px;
+    box-sizing: border-box;
+  }
+  ul {
+    a {
+      display: block;
+      height: 100%;
+      width: 100%;
+      line-height: 65px;
+      font-size: 20px;
+      color: $charleston-green;
+      padding-left: 40px;
+      box-sizing: border-box;
+      border-top: 1px solid rgba(255,255,255,.1);
+      transition: .4s;
+      i {
+        margin-right: 16px;
+      }
+    }
+  }
+}
+ul {
+  li {
+    &:hover {
+      a {
+        padding-left: 50px;
+      }
+    }
+  }
+}
+#check {
+  display: none;
+  &:checked {
+    ~ {
+      .sidebar {
+        left: 0;
+      }
+      label {
+        #btn {
+          left: 250px;
+          opacity: 0;
+          pointer-events: none;
+        }
+        #cancel {
+          left: 195px;
+        }
+      }
+      section {
+        margin-left: 250px;
+      }
+    }
+  }
+}
+label {
+  #btn {
+    position: absolute;
+    background: $gainsboro;
+    border: 1px solid rgba(108, 117, 125, 0.1);
+    border-radius: 3px;
+    cursor: pointer;
+    left: 40px;
+    top: 23px;
+    font-size: 35px;
+    color: $charleston-green;
+    padding: 6px 12px;
+    transition: all .5s;
+  }
+  #cancel {
+    position: absolute;
+    background: $gainsboro;
+    border-radius: 3px;
+    cursor: pointer;
+    z-index: 1111;
+    left: -195px;
+    top: 23px;
+    font-size: 28px;
+    color: $charleston-green;
+    padding: 12px 12px;
+    transition: all .5s ease;
+    border-top: 1px solid rgba(108, 117, 125, 0.1);
+    border-right: 1px solid rgba(108, 117, 125, 0.1);
+    border-bottom: 1px solid rgba(108, 117, 125, 0.1);
+  }
+}
+hr{
+  border: 1px solid rgba(255,255,255,.1);
+}

@@ -1,8 +1,8 @@
 .note {
   display: flex;
   flex-direction: column;
-  border: 1px solid grey;
-  border-radius: 5px;
+  //border: 1px solid grey;
+  //border-radius: 5px;
   padding: 8px 10px;
   margin-bottom: 10px;
   position: relative;
@@ -12,6 +12,7 @@
     outline: none;
     padding: 3px;
     resize: none;
+    background-color:rgba(250,250,250,1);
 
     &.title {
       font-weight: bold;
@@ -43,7 +44,7 @@
 
     span {
       visibility: hidden;
-      background-color: #f8f8f8;
+      //background-color: #f8f8f8;
       border-radius: 5px;
       padding: 8px;
     }
