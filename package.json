@@ -90,6 +90,7 @@
     "webpack": "^5.55.1"
   },
   "dependencies": {
+    "@heroicons/react": "^1.0.4",
     "@reduxjs/toolkit": "^1.6.1",
     "electron-squirrel-startup": "^1.0.0",
     "path-browserify": "^1.0.1",
