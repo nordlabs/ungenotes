@@ -5,6 +5,9 @@
   "description": "My Electron application description",
   "main": ".webpack/main",
   "scripts": {
+    "build:tailwind": "tailwindcss build src/tailwind.css -o src/tailwind.output.css",
+    "prestart": "yarn run build:tailwind",
+    "prebuild": "yarn run build:tailwind",
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
@@ -12,7 +15,7 @@
     "lint": "eslint --ext .ts,.tsx ."
   },
   "keywords": [],
-  "author": "bent",
+  "author": "bent, jenny",
   "license": "MIT",
   "config": {
     "forge": {
