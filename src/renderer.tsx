@@ -29,6 +29,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './style/index.scss';
+// eslint-disable-next-line import/no-unresolved
+import './tailwind.output.css';
 import App from './components/App';
 import {Provider} from 'react-redux';
 import {store} from './redux/store';
