@@ -9,10 +9,13 @@ class App extends Component<AppProps> {
         return (
             <div>
                 <Sidebar></Sidebar>
-                <h1>Unge Notes</h1>
-                {
-                    this.props.categories.map((c) => <Category key={c.title} category={c} />)
-                }
+                <div className={'ml-80'}>
+                    <h1>Unge Notes</h1>
+                    {
+                        this.props.categories.map((c) => <Category key={c.title} category={c} />)
+                    }
+                </div>
+
 
             </div>
         );
