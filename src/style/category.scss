@@ -1,4 +1,11 @@
 .category {
+  padding: 8px 10px;
+
+  h2 {
+    font-size: 25pt;
+    margin-bottom: 12px;
+  }
+
   .add-note {
     margin-top: 5px;
     padding: 5px 10px;
@@ -7,7 +14,7 @@
     cursor: pointer;
 
     button {
-      visibility: hidden;
+      opacity: 0.35;
       border: 1px dashed grey;
       border-radius: 5px;
       padding: 5px 15px;
@@ -16,7 +23,7 @@
     }
 
     &:hover button {
-      visibility: visible;
+      opacity: 1;
     }
   }
 }

@@ -8,9 +8,8 @@ class App extends Component<AppProps> {
     public render(): ReactNode {
         return (
             <div>
-                <Sidebar></Sidebar>
-                <div className={'ml-80'}>
-                    <h1>Unge Notes</h1>
+                <Sidebar />
+                <div className={'ml-64'}>
                     {
                         this.props.categories.map((c) => <Category key={c.title} category={c} />)
                     }

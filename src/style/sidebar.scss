@@ -40,7 +40,7 @@ $gunmetal: rgba(52, 58, 64, 1);
   transition: all .5s ease;
   header {
     font-size: 22px;
-    font-weight:800;
+    font-weight: 800;
     color: $charleston-green;
     line-height: 100px;
     text-align: center;
@@ -91,6 +91,7 @@ ul {
     ~ {
       .sidebar {
         left: 0;
+        overflow-y: auto;
       }
       label {
         #btn {
@@ -99,7 +100,7 @@ ul {
           pointer-events: none;
         }
         #cancel {
-          left: 195px;
+          left: 200px;
         }
       }
       section {
@@ -115,7 +116,7 @@ label {
     border: 1px solid rgba(108, 117, 125, 0.1);
     border-radius: 3px;
     cursor: pointer;
-    left: 40px;
+    left: 0;
     top: 23px;
     font-size: 35px;
     color: $charleston-green;
@@ -127,7 +128,6 @@ label {
     background: $gainsboro;
     border-radius: 3px;
     cursor: pointer;
-    z-index: 1111;
     left: -195px;
     top: 23px;
     font-size: 28px;

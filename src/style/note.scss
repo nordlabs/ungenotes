@@ -1,14 +1,13 @@
 .note {
   display: flex;
   flex-direction: column;
-  padding: 8px 10px;
   margin-bottom: 10px;
   position: relative;
 
   input, input:focus-visible, textarea {
     border: none;
     outline: none;
-    padding: 3px;
+    padding: 3px 10px;
     resize: none;
     background-color:rgba(250,250,250,1);
 
