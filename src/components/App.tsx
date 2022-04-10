@@ -1,37 +1,22 @@
-import React, {Component, ReactNode} from 'react';
-import {connect, ConnectedProps} from 'react-redux';
-import {RootState} from '../redux/store';
-import Category from './Category';
+import React from 'react';
 import Sidebar from './Sidebar';
+import {Route, Routes } from 'react-router-dom';
+import CategoryRoute from '../routes/CategoryRoute';
+import {useAppSelector} from '../util/hooks';
 
-class App extends Component<AppProps> {
-    public render(): ReactNode {
-        return (
-            <div>
-                <Sidebar></Sidebar>
-                <div className={'ml-80'}>
-                    <h1>Unge Notes</h1>
-                    {
-                        this.props.categories.map((c) => <Category key={c.title} category={c} />)
-                    }
-                </div>
+export default function App(): JSX.Element {
+    const sidebarOpened = useAppSelector(state => state.data.sidebarOpened);
 
-
+    return (
+        <div>
+            <Sidebar />
+            <div className={sidebarOpened ? 'ml-64' : 'ml-16'} style={{transition: 'all 0.5s ease'}}>
+                <Routes>
+                    <Route path={'category'}>
+                        <Route path={':categoryId'} element={<CategoryRoute />} />
+                    </Route>
+                </Routes>
             </div>
-        );
-    }
+        </div>
+    );
 }
-
-const connector = connect(
-    (state: RootState) => {
-        return {
-            categories: state.data.categories ?? [],
-        };
-    },
-);
-
-type AppProps = ConnectedProps<typeof connector>;
-
-export default connector(App);
-
-

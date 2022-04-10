@@ -23,8 +23,8 @@ const createWindow = (): void => {
 
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    height: store.get<number>('height') ?? 600,
-    width: store.get<number>('width') ?? 800,
+    height: store.get<number>('height') ?? 700,
+    width: store.get<number>('width') ?? 1400,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,

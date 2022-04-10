@@ -1,51 +1,70 @@
-import React, {ChangeEvent, Component, ReactNode, TextareaHTMLAttributes} from 'react';
+import React, {
+    ChangeEvent,
+    MutableRefObject,
+    TextareaHTMLAttributes,
+    useEffect,
+    useRef
+} from 'react';
 
-export class AutoHeightTextarea extends Component<IAutoHeightTextareaProps> {
-    private element: HTMLTextAreaElement;
-
-    public render(): ReactNode {
-        return (
-            <textarea
-                ref={(i) => {
-                    this.element = i;
-
-                    if (this.props.textareaRef) {
-                        this.props.textareaRef(i);
-                    }
-                }}
-                value={this.props.value}
-                onChange={this.props.onChange}
-                onKeyDown={this.props.onKeyDown}
-                onPaste={this.props.onPaste}
-                onPasteCapture={this.props.onPasteCapture}
-                spellCheck={this.props.spellCheck}
-                placeholder={this.props.placeholder}
-            />
-        );
-    }
-
-    private calcHeight() {
+export default function AutoHeightTextarea(props: IAutoHeightTextareaProps) {
+    const element = useRef<HTMLTextAreaElement>();
+    const calcHeight = () => {
         // required to shrink field if text is smaller now
-        this.element.style.height = 'auto';
-        this.element.style.height = this.element.scrollHeight + 'px';
-    }
+        element.current.style.height = 'auto';
+        element.current.style.height = element.current.scrollHeight + 'px';
+    };
 
-    public componentDidMount(): void {
-        this.calcHeight();
+    // on mount
+    useEffect(
+        () => {
+            calcHeight();
 
-        window.addEventListener('resize', () => {
-            this.calcHeight();
-        });
-    }
+            // add event listener
+            window.addEventListener('resize', calcHeight);
 
-    public componentDidUpdate(): void {
-        this.calcHeight();
-    }
+            // remove event listener on dismount
+            return () => {
+                window.removeEventListener('resize', calcHeight);
+            };
+        },
+        [],
+    );
+
+    // on text update
+    useEffect(
+        () => {
+            calcHeight();
+        },
+        [element.current?.value ?? ''],
+    );
+
+    // textarea ref update
+    useEffect(
+        () => {
+            if (props.textareaRef) {
+                props.textareaRef.current = element.current;
+            }
+        },
+        [element.current],
+    );
+
+    return (
+        <textarea
+            ref={element}
+            value={props.value}
+            onChange={props.onChange}
+            onKeyDown={props.onKeyDown}
+            onPaste={props.onPaste}
+            onPasteCapture={props.onPasteCapture}
+            spellCheck={props.spellCheck}
+            placeholder={props.placeholder}
+        />
+    );
 }
 
 interface IAutoHeightTextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement>{
     value: string;
     onChange: (evt: ChangeEvent<HTMLTextAreaElement>) => void;
-    textareaRef?: (instance: HTMLTextAreaElement) => void;
+    textareaRef?: MutableRefObject<HTMLTextAreaElement>;
     className?: string | undefined;
 }

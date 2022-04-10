@@ -10,7 +10,7 @@ $cultured-2: rgba(233, 236, 239, 1);
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin: auto;
-  max-width: 38rem;
+  min-width: 45rem;
   padding: 2rem;
   background-color: $cultured-2;
 }
