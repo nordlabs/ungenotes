@@ -38,6 +38,7 @@ $gunmetal: rgba(52, 58, 64, 1);
   border-right: 1px solid rgba(108, 117, 125, 0.1);
   background: $gainsboro;
   transition: all .5s ease;
+
   header {
     font-size: 22px;
     font-weight: 800;
@@ -47,52 +48,55 @@ $gunmetal: rgba(52, 58, 64, 1);
     background: $gainsboro;
     user-select: none;
   }
-  h6{
+
+  h6 {
+    letter-spacing:0.2em;
+  }
+
+  h6, ul a {
     display: block;
     height: 100%;
     width: 100%;
     line-height: 65px;
     font-size: 10px;
-    letter-spacing:0.2em;
     color: $charleston-green;
     padding-left: 40px;
     box-sizing: border-box;
   }
-  ul {
-    a {
-      display: block;
-      height: 100%;
-      width: 100%;
-      line-height: 65px;
-      font-size: 16px;
-      color: $charleston-green;
-      padding-left: 40px;
-      box-sizing: border-box;
-      border-top: 1px solid rgba(255,255,255,.1);
-      transition: .4s;
-      i {
-        margin-right: 16px;
-      }
+
+  ul a {
+    font-size: 16px;
+    border-top: 1px solid rgba(255,255,255,.1);
+    transition: .4s;
+
+    i {
+      margin-right: 16px;
     }
   }
 }
-ul {
-  li {
-    &:hover {
-      a {
-        padding-left: 50px;
-      }
-    }
-  }
+
+ul li:hover a, ul li.active a {
+  padding-left: 50px;
 }
+
+ul li.active a {
+  font-weight: bold;
+}
+
+ul li.empty a {
+  opacity: 0.7;
+}
+
 #check {
   display: none;
+
   &:checked {
     ~ {
       .sidebar {
         left: 0;
         overflow-y: auto;
       }
+
       label {
         #btn {
           left: 250px;
@@ -103,12 +107,14 @@ ul {
           left: 200px;
         }
       }
+
       section {
         margin-left: 250px;
       }
     }
   }
 }
+
 label {
   #btn {
     position: absolute;
@@ -123,6 +129,7 @@ label {
     padding: 6px 12px;
     transition: all .5s;
   }
+
   #cancel {
     position: absolute;
     background: $gainsboro;
@@ -139,6 +146,7 @@ label {
     border-bottom: 1px solid rgba(108, 117, 125, 0.1);
   }
 }
+
 hr{
   border: 1px solid rgba(255,255,255,.1);
 }

@@ -19,6 +19,8 @@ export const dataSlice = createSlice<
         changeDescriptionOfNote: (state: IData, more: {payload: {note: INote, newDescription: string}}) => void,
         changeLinkOfNote: (state: IData, more: {payload: {note: INote, link: string}}) => void,
         toggleSidebar: (state: IData) => any,
+        selectCategory: (state: IData, more: {payload: {category?: ICategory}}) => any,
+        changeTitleOfCategory: (state: IData, more: {payload: {category: ICategory, newTitle: string}}) => any,
     }
     >
 ({
@@ -27,6 +29,7 @@ export const dataSlice = createSlice<
         categories: store.get('categories') ?? [],
         tags: store.get('tags') ?? [],
         sidebarOpened: store.get('sidebarOpened') === true,
+        selectedCategory: store.get('sidebarOpened') ?? null,
     },
     reducers: {
         addNoteToCategory: (state, more) => {
@@ -48,8 +51,9 @@ export const dataSlice = createSlice<
         moveNoteFromCategoryToCategory: () => {
             console.log('moveNoteFromCategoryToCategory reducer called');
         },
-        addCategory: () => {
-            console.log('addCategory reducer called');
+        addCategory: (state, more) => {
+            state.categories.push(more.payload.category);
+            store.setPartial(state);
         },
         renameCategory: () => {
             console.log('renameCategory reducer called');
@@ -88,9 +92,33 @@ export const dataSlice = createSlice<
             state.sidebarOpened = !state.sidebarOpened;
             store.set('sidebarOpened', state.sidebarOpened);
         },
+        selectCategory: (state, more) => {
+            state.selectedCategory = more.payload.category?.id;
+            store.set('selectedCategory', state.selectedCategory);
+        },
+        changeTitleOfCategory: (state, more) => {
+            const category = state.categories.find((c) => more.payload.category.id === c.id);
+
+            if (category) {
+                category.title = more.payload.newTitle;
+                store.setPartial(state);
+            }
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { addNoteToCategory, removeNote, moveNoteFromCategoryToCategory, addCategory, renameCategory, changeTitleOfNote, changeDescriptionOfNote, changeLinkOfNote, toggleSidebar } = dataSlice.actions;
+export const {
+    addNoteToCategory,
+    removeNote,
+    moveNoteFromCategoryToCategory,
+    addCategory,
+    renameCategory,
+    changeTitleOfNote,
+    changeDescriptionOfNote,
+    changeLinkOfNote,
+    toggleSidebar,
+    selectCategory,
+    changeTitleOfCategory,
+} = dataSlice.actions;
 export const dataSliceReducer = dataSlice.reducer;
