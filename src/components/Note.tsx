@@ -38,9 +38,6 @@ export default function Note(props: {note: INote}) {
                 if (evt.ctrlKey && evt.key in ctrlKeyMap) {
                     const val = ctrlKeyMap[evt.key];
 
-                    // @ts-ignore
-                    console.log('keypress', val.current);
-
                     if ('function' === typeof val) {
                         val(evt);
                     } else if (val && val.current) {
@@ -63,7 +60,7 @@ export default function Note(props: {note: INote}) {
                 onChange={(evt) => dispatch(changeTitleOfNote({note: props.note, newTitle: evt.target.value}))}
                 onKeyDown={(evt) => {
                     if (evt.key === 'Enter' || evt.key === 'ArrowDown') {
-                        this.descriptionContainer.focus();
+                        descriptionContainer.current.focus();
                         evt.stopPropagation();
                         evt.preventDefault();
                     }
@@ -91,16 +88,16 @@ export default function Note(props: {note: INote}) {
                     }
 
                     // insert the text manually, as the event was prevented
-                    const prevPos = this.descriptionContainer.selectionEnd;
+                    const prevPos = descriptionContainer.current.selectionEnd;
 
                     setDescription(
-                        props.note.description.slice(0, this.descriptionContainer.selectionStart) +
+                        props.note.description.slice(0, descriptionContainer.current.selectionStart) +
                         content +
-                        props.note.description.slice(this.descriptionContainer.selectionStart)
+                        props.note.description.slice(descriptionContainer.current.selectionStart)
                     );
 
-                    this.descriptionContainer.selectionStart = prevPos + content.length;
-                    this.descriptionContainer.selectionEnd = prevPos + content.length;
+                    descriptionContainer.current.selectionStart = prevPos + content.length;
+                    descriptionContainer.current.selectionEnd = prevPos + content.length;
                 }}
                 onChange={(evt) => {
                     setDescription(evt.target.value);
@@ -122,11 +119,11 @@ export default function Note(props: {note: INote}) {
                             });
 
                         if (evt.key === 'ArrowUp' && currentRow === 0) {
-                            this.titleContainer.focus();
+                            titleContainer.current.focus();
                             evt.preventDefault();
                             evt.stopPropagation();
                         } else if (evt.key === 'ArrowDown' && currentRow === props.note.description.split('\n').length - 1) {
-                            this.linkContainer.focus();
+                            linkContainer.current.focus();
                             evt.preventDefault();
                             evt.stopPropagation();
                         }
@@ -134,14 +131,14 @@ export default function Note(props: {note: INote}) {
 
                     if (evt.key === 'Enter' && evt.ctrlKey) {
                         if (evt.shiftKey === true) {
-                            this.titleContainer.focus();
+                            titleContainer.current.focus();
 
                             evt.preventDefault();
                             evt.stopPropagation();
                             return;
                         }
 
-                        this.linkContainer.focus();
+                        linkContainer.current.focus();
                         evt.stopPropagation();
                         evt.preventDefault();
                     }
@@ -158,7 +155,7 @@ export default function Note(props: {note: INote}) {
                         onClick={() => shell.openExternal(props.note.link)}
                         onKeyDown={(evt) => {
                             if (evt.key === 'ArrowUp') {
-                                this.descriptionContainer.focus();
+                                descriptionContainer.current.focus();
                                 evt.stopPropagation();
                                 evt.preventDefault();
                             }

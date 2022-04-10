@@ -7,13 +7,14 @@ import {useAppDispatch} from '../util/hooks';
 
 export default function Category(props: {category: ICategory}): JSX.Element {
     const dispatch = useAppDispatch();
+    const addNote = () => dispatch(addNoteToCategory({note: {id: NoteHelper.getNewId(), title: '', dateCreated: (new Date()).toJSON(), lastModified: (new Date()).toJSON()}, category: props.category}));
 
     return (
         <div
             className={classNames('category')}
             onKeyDown={(evt) => {
                 if (evt.key === 'n' && evt.ctrlKey) {
-                    this.props.addNote();
+                    addNote();
                 }
             }}
         >
@@ -23,7 +24,7 @@ export default function Category(props: {category: ICategory}): JSX.Element {
             }
             <div
                 className={classNames('add-note')}
-                onClick={() => dispatch(addNoteToCategory({note: {id: NoteHelper.getNewId(), title: '', dateCreated: (new Date()).toJSON(), lastModified: (new Date()).toJSON()}, category: props.category}))}
+                onClick={addNote}
             >
                 <button>Add note</button>
             </div>
