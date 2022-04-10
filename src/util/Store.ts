@@ -4,7 +4,7 @@ import * as path from 'path';
 
 export class Store<T extends {[key: string]: any} = {}> {
     private static instances: {[name: string]: Store} = {};
-    private static TIMEOUT_IN_S = 5;
+    private static TIMEOUT_IN_S = 2;
 
     private changeTimeout: NodeJS.Timeout;
     private readonly name: string;

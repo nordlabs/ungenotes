@@ -34,4 +34,5 @@ interface ICategory {
 interface IData {
     categories: ICategory[];
     tags: ITag[];
+    sidebarOpened: boolean;
 }

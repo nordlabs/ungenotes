@@ -8,18 +8,21 @@ import {
     CollectionIcon
 } from '@heroicons/react/outline';
 import {Link} from 'react-router-dom';
-import {useAppSelector} from '../util/hooks';
+import {useAppDispatch, useAppSelector} from '../util/hooks';
+import {toggleSidebar} from '../redux/dataSlice';
 
 export default function Sidebar() {
     const iconStyle = 'h-7 w-7 pb-1 inline pr-3';
     const categories = useAppSelector(state => state.data.categories);
+    const sidebarOpened = useAppSelector(state => state.data.sidebarOpened);
+    const dispatch = useAppDispatch();
 
     return (
         <div className={'fixed z-50'}>
-            <input type="checkbox" id="check"/>
+            <input type="checkbox" id="check" defaultChecked={sidebarOpened} />
             <label htmlFor="check">
-                <p id="btn">→</p>
-                <p id="cancel">←</p>
+                <p id="btn" onClick={() => dispatch(toggleSidebar())}>→</p>
+                <p id="cancel" onClick={() => dispatch(toggleSidebar())}>←</p>
             </label>
             <div className="sidebar">
                 <header>ungenotes</header>

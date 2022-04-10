@@ -18,6 +18,7 @@ export const dataSlice = createSlice<
         changeTitleOfNote: (state: IData, more: {payload: {note: INote, newTitle: string}}) => void,
         changeDescriptionOfNote: (state: IData, more: {payload: {note: INote, newDescription: string}}) => void,
         changeLinkOfNote: (state: IData, more: {payload: {note: INote, link: string}}) => void,
+        toggleSidebar: (state: IData) => any,
     }
     >
 ({
@@ -25,6 +26,7 @@ export const dataSlice = createSlice<
     initialState: {
         categories: store.get('categories') ?? [],
         tags: store.get('tags') ?? [],
+        sidebarOpened: store.get('sidebarOpened') === true,
     },
     reducers: {
         addNoteToCategory: (state, more) => {
@@ -82,9 +84,13 @@ export const dataSlice = createSlice<
             });
             store.setPartial(state);
         },
+        toggleSidebar: (state) => {
+            state.sidebarOpened = !state.sidebarOpened;
+            store.set('sidebarOpened', state.sidebarOpened);
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { addNoteToCategory, removeNote, moveNoteFromCategoryToCategory, addCategory, renameCategory, changeTitleOfNote, changeDescriptionOfNote, changeLinkOfNote } = dataSlice.actions;
+export const { addNoteToCategory, removeNote, moveNoteFromCategoryToCategory, addCategory, renameCategory, changeTitleOfNote, changeDescriptionOfNote, changeLinkOfNote, toggleSidebar } = dataSlice.actions;
 export const dataSliceReducer = dataSlice.reducer;
