@@ -1,13 +1,16 @@
 import React from 'react';
 import classNames from 'classnames';
 import Note from './Note';
-import {addNoteToCategory, changeTitleOfCategory} from '../redux/dataSlice';
+import {addNoteToCategory, changeTitleOfCategory, removeCategory} from '../redux/dataSlice';
 import {NoteHelper} from '../util/NoteHelper';
-import {useAppDispatch} from '../util/hooks';
-import {PencilIcon} from '@heroicons/react/solid';
+import {useAppDispatch, useAppSelector} from '../util/hooks';
+import {PencilIcon, PlusIcon, TrashIcon} from '@heroicons/react/solid';
+import {useNavigate} from 'react-router-dom';
 
 export default function Category(props: { category: ICategory }): JSX.Element {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const categories = useAppSelector(state => state.data.categories);
     const addNote = () => dispatch(addNoteToCategory({
         note: {
             id: NoteHelper.getNewId(),
@@ -49,7 +52,34 @@ export default function Category(props: { category: ICategory }): JSX.Element {
                 className={classNames('add-note')}
                 onClick={addNote}
             >
-                <button>Add note</button>
+                <button><PlusIcon className={iconStyle} />Notiz</button>
+            </div>
+            <div className={classNames(['flex', 'justify-end', 'text-red-600'])}>
+                <button
+                    onClick={(e) => {
+                        if (confirm(`Die Kategorie '${props.category.title}' löschen?`)) {
+                            const categoryIdx = categories.indexOf(props.category);
+                            const nextCategoryIdx = (
+                                categoryIdx === 0 ?
+                                    (categories.length > 1 ? 1 : null) :
+                                    categoryIdx > 0 ?
+                                        categoryIdx - 1 :
+                                        null
+                            );
+                            const nextCategory = nextCategoryIdx !== null ? categories[nextCategoryIdx] : null;
+
+                            dispatch(removeCategory({category: props.category}));
+
+                            if (nextCategory !== null) {
+                                navigate(`/category/${nextCategory.id}`);
+                            } else {
+                                navigate('/');
+                            }
+                        }
+                    }}
+                >
+                    <TrashIcon className={iconStyle} />Löschen
+                </button>
             </div>
         </div>
     );

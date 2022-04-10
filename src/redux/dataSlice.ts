@@ -21,6 +21,7 @@ export const dataSlice = createSlice<
         toggleSidebar: (state: IData) => any,
         selectCategory: (state: IData, more: {payload: {category?: ICategory}}) => any,
         changeTitleOfCategory: (state: IData, more: {payload: {category: ICategory, newTitle: string}}) => any,
+        removeCategory: (state: IData, more: {payload: {category: ICategory}}) => any,
     }
     >
 ({
@@ -104,6 +105,14 @@ export const dataSlice = createSlice<
                 store.setPartial(state);
             }
         },
+        removeCategory: (state, more) => {
+            const category = state.categories.find((c) => c.id === more.payload.category.id);
+
+            if (category) {
+                state.categories.splice(state.categories.indexOf(category), 1);
+                store.setPartial(state);
+            }
+        },
     },
 });
 
@@ -120,5 +129,6 @@ export const {
     toggleSidebar,
     selectCategory,
     changeTitleOfCategory,
+    removeCategory,
 } = dataSlice.actions;
 export const dataSliceReducer = dataSlice.reducer;
