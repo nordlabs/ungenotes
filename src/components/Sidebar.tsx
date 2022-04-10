@@ -7,15 +7,20 @@ import {
     ChatIcon,
     CollectionIcon
 } from '@heroicons/react/outline';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../util/hooks';
-import {toggleSidebar} from '../redux/dataSlice';
+import {addCategory, toggleSidebar} from '../redux/dataSlice';
+import classNames from 'classnames';
+import {PlusIcon} from '@heroicons/react/solid';
+import {CategoryHelper} from '../util/CategoryHelper';
 
-export default function Sidebar() {
+export default function Sidebar(): JSX.Element {
     const iconStyle = 'h-7 w-7 pb-1 inline pr-3';
     const categories = useAppSelector(state => state.data.categories);
     const sidebarOpened = useAppSelector(state => state.data.sidebarOpened);
+    const selectedCategory = useAppSelector(state => state.data.selectedCategory);
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     return (
         <div className={'fixed z-50'}>
@@ -40,15 +45,40 @@ export default function Sidebar() {
                     {
                         categories.map(
                             (c) => (
-                                <Link to={`/category/${c.id}`} key={c.id}>
-                                    {/*<li key={c.title}><a href={'#'}>*/}
-                                    {c.title}
-                                    {/*</a></li>*/}
-                                </Link>
+                                <li key={c.id} className={classNames({active: selectedCategory === c.id, empty: c.title.trim() === ''})}>
+                                    <Link to={`/category/${c.id}`}>
+                                        {
+                                            c.title.trim() !== '' ?
+                                                c.title :
+                                                '<kein Titel>'
+                                        }
+                                    </Link>
+                                </li>
                             )
                         )
                     }
-                    {/*TODO link categories to category pages*/}
+                    <li>
+                        <a
+                            href={'#'}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+
+                                const newId = CategoryHelper.getNewId();
+
+                                dispatch(addCategory({
+                                    category: {
+                                        id: newId,
+                                        title: '',
+                                        notes: [],
+                                    }
+                                }));
+                                navigate(`/category/${newId}`);
+                            }}
+                        >
+                            <PlusIcon className={iconStyle}/>Kategorie
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

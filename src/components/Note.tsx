@@ -4,6 +4,7 @@ import {changeDescriptionOfNote, changeLinkOfNote, changeTitleOfNote, removeNote
 import AutoHeightTextarea from './AutoHeightTextarea';
 import {shell} from 'electron';
 import {useAppDispatch} from '../util/hooks';
+import {TrashIcon} from '@heroicons/react/solid';
 
 export default function Note(props: {note: INote}) {
     const container = useRef<HTMLDivElement>();
@@ -14,6 +15,7 @@ export default function Note(props: {note: INote}) {
     const setDescription = (description: string) => dispatch(changeDescriptionOfNote({note: props.note, newDescription: description}));
     const setLink = (link: string) => dispatch(changeLinkOfNote({note: props.note, link}));
     const deleteNote = () => dispatch(removeNote({note: props.note}));
+    const iconStyle = 'h-7 w-7 pb-1 inline pr-3';
 
     const ctrlKeyMap: {[key: string]: MutableRefObject<HTMLElement>|((evt: KeyboardEvent<HTMLDivElement>) => void)} = {
         'o': () => {
@@ -47,10 +49,10 @@ export default function Note(props: {note: INote}) {
             }}
         >
             <span
-                className={classNames('remove')}
+                className={classNames('remove', 'text-red-600')}
                 onClick={deleteNote}
             >
-                <span>Delete</span>
+                <span><TrashIcon className={iconStyle} />Löschen</span>
             </span>
             <input
                 ref={titleContainer}
