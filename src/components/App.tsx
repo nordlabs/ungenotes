@@ -1,36 +1,19 @@
 import React, {Component, ReactNode} from 'react';
-import {connect, ConnectedProps} from 'react-redux';
-import {RootState} from '../redux/store';
-import Category from './Category';
 import Sidebar from './Sidebar';
+import Category from './Category';
+import {useAppSelector} from '../util/hooks';
 
-class App extends Component<AppProps> {
-    public render(): ReactNode {
-        return (
-            <div>
-                <Sidebar />
-                <div className={'ml-64'}>
-                    {
-                        this.props.categories.map((c) => <Category key={c.title} category={c} />)
-                    }
-                </div>
+export default function App() {
+    const categories = useAppSelector(state => state.data.categories) ?? [];
 
-
+    return (
+        <div>
+            <Sidebar />
+            <div className={'ml-64'}>
+                {
+                    categories.map((c) => <Category key={c.title} category={c} />)
+                }
             </div>
-        );
-    }
+        </div>
+    );
 }
-
-const connector = connect(
-    (state: RootState) => {
-        return {
-            categories: state.data.categories ?? [],
-        };
-    },
-);
-
-type AppProps = ConnectedProps<typeof connector>;
-
-export default connector(App);
-
-
