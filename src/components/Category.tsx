@@ -3,9 +3,9 @@ import classNames from 'classnames';
 import Note from './Note';
 import {addNoteToCategory} from '../redux/dataSlice';
 import {NoteHelper} from '../util/NoteHelper';
-import {useAppDispatch, useAppSelector} from '../util/hooks';
+import {useAppDispatch} from '../util/hooks';
 
-export default function Category(props: {category: ICategory}) {
+export default function Category(props: {category: ICategory}): JSX.Element {
     const dispatch = useAppDispatch();
 
     return (

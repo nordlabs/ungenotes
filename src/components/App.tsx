@@ -1,18 +1,18 @@
-import React, {Component, ReactNode} from 'react';
+import React from 'react';
 import Sidebar from './Sidebar';
-import Category from './Category';
-import {useAppSelector} from '../util/hooks';
+import {Route, Routes } from 'react-router-dom';
+import CategoryRoute from '../routes/CategoryRoute';
 
-export default function App() {
-    const categories = useAppSelector(state => state.data.categories) ?? [];
-
+export default function App(): JSX.Element {
     return (
         <div>
             <Sidebar />
             <div className={'ml-64'}>
-                {
-                    categories.map((c) => <Category key={c.title} category={c} />)
-                }
+                <Routes>
+                    <Route path={'category'}>
+                        <Route path={':categoryId'} element={<CategoryRoute />} />
+                    </Route>
+                </Routes>
             </div>
         </div>
     );
