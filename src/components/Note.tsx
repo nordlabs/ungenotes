@@ -4,9 +4,16 @@ import {changeDescriptionOfNote, changeLinkOfNote, changeTitleOfNote, removeNote
 import AutoHeightTextarea from './AutoHeightTextarea';
 import {shell} from 'electron';
 import {useAppDispatch} from '../util/hooks';
-import {TrashIcon} from '@heroicons/react/solid';
+import {SelectorIcon, TrashIcon} from '@heroicons/react/solid';
 
-export default function Note(props: {note: INote}): JSX.Element {
+export default function Note(
+    props: {
+        note: INote,
+        onDragStart: React.DragEventHandler<HTMLDivElement>,
+        onDragOver: React.DragEventHandler<HTMLDivElement>,
+        onDrop: React.DragEventHandler<HTMLDivElement>,
+    }
+): JSX.Element {
     const container = useRef<HTMLDivElement>();
     const titleContainer = useRef<HTMLInputElement>();
     const descriptionContainer = useRef<HTMLTextAreaElement>();
@@ -15,7 +22,7 @@ export default function Note(props: {note: INote}): JSX.Element {
     const setDescription = (description: string) => dispatch(changeDescriptionOfNote({note: props.note, newDescription: description}));
     const setLink = (link: string) => dispatch(changeLinkOfNote({note: props.note, link}));
     const deleteNote = () => dispatch(removeNote({note: props.note}));
-    const iconStyle = 'h-7 w-7 pb-1 inline pr-3';
+    const iconStyle = 'h-7 inline';
     const [linkFocused, setLinkFocused] = useState(false);
 
     const ctrlKeyMap: {[key: string]: MutableRefObject<HTMLElement>|((evt: KeyboardEvent<HTMLDivElement>) => void)} = {
@@ -48,6 +55,10 @@ export default function Note(props: {note: INote}): JSX.Element {
                     }
                 }
             }}
+            draggable={true}
+            onDragStart={props.onDragStart}
+            onDragOver={props.onDragOver}
+            onDrop={props.onDrop}
         >
             <span
                 className={classNames('remove', 'text-red-600')}
@@ -55,21 +66,28 @@ export default function Note(props: {note: INote}): JSX.Element {
             >
                 <span><TrashIcon className={iconStyle} />Löschen</span>
             </span>
-            <input
-                ref={titleContainer}
-                className={'title'}
-                placeholder={'title'}
-                value={props.note.title}
-                onChange={(evt) => dispatch(changeTitleOfNote({note: props.note, newTitle: evt.target.value}))}
-                onKeyDown={(evt) => {
-                    if (evt.key === 'Enter' || evt.key === 'ArrowDown') {
-                        descriptionContainer.current.focus();
-                        evt.stopPropagation();
-                        evt.preventDefault();
-                    }
-                }}
-                spellCheck={false}
-            />
+            <div className={classNames('flex')}>
+                <span title={'Verschieben'}>
+                    <SelectorIcon
+                        className={classNames(iconStyle, 'move', 'pl-1.5 pr-1.5 pt-1')}
+                    />
+                </span>
+                <input
+                    ref={titleContainer}
+                    className={classNames('title', 'flex-auto')}
+                    placeholder={'title'}
+                    value={props.note.title}
+                    onChange={(evt) => dispatch(changeTitleOfNote({note: props.note, newTitle: evt.target.value}))}
+                    onKeyDown={(evt) => {
+                        if (evt.key === 'Enter' || evt.key === 'ArrowDown') {
+                            descriptionContainer.current.focus();
+                            evt.stopPropagation();
+                            evt.preventDefault();
+                        }
+                    }}
+                    spellCheck={false}
+                />
+            </div>
             <AutoHeightTextarea
                 textareaRef={descriptionContainer}
                 className={classNames('description')}

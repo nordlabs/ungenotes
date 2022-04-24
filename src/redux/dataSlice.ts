@@ -12,6 +12,7 @@ export const dataSlice = createSlice<
     {
         addNoteToCategory: (state: IData, more: {payload: {note: INote, category: ICategory}}) => void,
         removeNote: (state: IData, more: {payload: {note: INote}}) => void,
+        setNotesOfCategory: (state: IData, more: {payload: {notes: INote[], category: ICategory}}) => any,
         moveNoteFromCategoryToCategory: (state: IData, more: {payload: {note: INote, fromCategory: ICategory, toCategory: ICategory}}) => void
         addCategory: (state: IData, more: {payload: {category: ICategory}}) => void,
         renameCategory: (state: IData, more: {payload: {category: ICategory, newName: string}}) => void,
@@ -113,12 +114,20 @@ export const dataSlice = createSlice<
                 store.setPartial(state);
             }
         },
+        setNotesOfCategory: (state, more) => {
+            const category = state.categories.find((c) => c.id === more.payload.category.id);
+
+            if (category) {
+                category.notes = more.payload.notes;
+            }
+        }
     },
 });
 
 // Action creators are generated for each case reducer function
 export const {
     addNoteToCategory,
+    setNotesOfCategory,
     removeNote,
     moveNoteFromCategoryToCategory,
     addCategory,
