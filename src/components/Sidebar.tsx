@@ -46,7 +46,7 @@ export default function Sidebar(): JSX.Element {
                         categories.map(
                             (c) => (
                                 <li key={c.id} className={classNames({active: selectedCategory === c.id, empty: c.title.trim() === ''})}>
-                                    <Link to={`/category/${c.id}`}>
+                                    <Link to={`/category/${c.id}`} className={classNames('link')}>
                                         {
                                             c.title.trim() !== '' ?
                                                 c.title :

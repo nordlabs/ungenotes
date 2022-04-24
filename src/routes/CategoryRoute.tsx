@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import Category from '../components/Category';
 import {useAppDispatch, useAppSelector} from '../util/hooks';
@@ -10,8 +10,13 @@ export default function CategoryRoute(): JSX.Element {
     const category = useAppSelector(state => state.data.categories.find((c) => c.id === categoryId));
     const dispatch = useAppDispatch();
 
-    // mark category as selected
-    dispatch(selectCategory({category}));
+    useEffect(
+        () => {
+            // mark category as selected
+            dispatch(selectCategory({category}));
+        },
+        [categoryId],
+    );
 
     return <Category category={category} />;
 }

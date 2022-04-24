@@ -62,6 +62,11 @@ $gunmetal: rgba(52, 58, 64, 1);
     color: $charleston-green;
     padding-left: 40px;
     box-sizing: border-box;
+
+    &.link {
+      line-height: normal;
+      padding: 15px 5px 15px 40px;
+    }
   }
 
   ul a {
@@ -76,7 +81,7 @@ $gunmetal: rgba(52, 58, 64, 1);
 }
 
 ul li:hover a, ul li.active a {
-  padding-left: 50px;
+  padding-left: 50px!important;
 }
 
 ul li.active a {
