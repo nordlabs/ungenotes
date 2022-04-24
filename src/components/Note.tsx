@@ -108,41 +108,39 @@ export default function Note(props: {note: INote}): JSX.Element {
                     if ('ArrowUp' === evt.key || 'ArrowDown' === evt.key) {
                         let pos = 0;
                         let currentRow = 0;
+                        const lines = props.note.description.split('\n');
 
-                        props.note.description
-                            .split('\n')
+                        lines
                             .forEach((p, i) => {
-                                // add \n char length again
                                 if (evt.currentTarget.selectionStart >= pos && evt.currentTarget.selectionStart <= pos + p.length + 1) {
                                     currentRow = i;
                                 }
 
-                                pos += p.length + 1;
+                                // add \n char length again, except for when it's the last line
+                                pos += p.length + (i < (lines.length - 1) ? 1 : 0);
                             });
 
-                        if (evt.key === 'ArrowUp' && currentRow === 0) {
+                        if (evt.key === 'ArrowUp' && currentRow === 0 && descriptionContainer.current.selectionStart === 0) {
                             titleContainer.current.focus();
                             evt.preventDefault();
                             evt.stopPropagation();
-                        } else if (evt.key === 'ArrowDown' && currentRow === props.note.description.split('\n').length - 1) {
+                        } else if (evt.key === 'ArrowDown' && currentRow === lines.length - 1 && pos === descriptionContainer.current.selectionEnd) {
                             linkContainer.current.focus();
                             evt.preventDefault();
                             evt.stopPropagation();
                         }
                     }
 
-                    if (evt.key === 'Enter' && evt.ctrlKey) {
-                        if (evt.shiftKey === true) {
+                    if (evt.key === 'Enter') {
+                        if (evt.shiftKey) {
                             titleContainer.current.focus();
-
                             evt.preventDefault();
                             evt.stopPropagation();
-                            return;
+                        } else if (evt.ctrlKey) {
+                            linkContainer.current.focus();
+                            evt.stopPropagation();
+                            evt.preventDefault();
                         }
-
-                        linkContainer.current.focus();
-                        evt.stopPropagation();
-                        evt.preventDefault();
                     }
                 }}
                 spellCheck={false}
@@ -154,7 +152,7 @@ export default function Note(props: {note: INote}): JSX.Element {
                 onChange={(evt) => setLink(evt.target.value)}
                 onClick={() => shell.openExternal(props.note.link)}
                 onKeyDown={(evt) => {
-                    if (evt.key === 'ArrowUp') {
+                    if (evt.key === 'ArrowUp' || evt.key === 'Enter' && evt.shiftKey) {
                         descriptionContainer.current.focus();
                         evt.stopPropagation();
                         evt.preventDefault();
