@@ -1,4 +1,4 @@
-import React, {KeyboardEvent, MutableRefObject, useRef} from 'react';
+import React, {KeyboardEvent, MutableRefObject, useRef, useState} from 'react';
 import classNames from 'classnames';
 import {changeDescriptionOfNote, changeLinkOfNote, changeTitleOfNote, removeNote} from '../redux/dataSlice';
 import AutoHeightTextarea from './AutoHeightTextarea';
@@ -16,6 +16,7 @@ export default function Note(props: {note: INote}): JSX.Element {
     const setLink = (link: string) => dispatch(changeLinkOfNote({note: props.note, link}));
     const deleteNote = () => dispatch(removeNote({note: props.note}));
     const iconStyle = 'h-7 w-7 pb-1 inline pr-3';
+    const [linkFocused, setLinkFocused] = useState(false);
 
     const ctrlKeyMap: {[key: string]: MutableRefObject<HTMLElement>|((evt: KeyboardEvent<HTMLDivElement>) => void)} = {
         'o': () => {
@@ -147,7 +148,7 @@ export default function Note(props: {note: INote}): JSX.Element {
             />
             <input
                 ref={linkContainer}
-                className={classNames('link', {empty: [null, undefined].includes(props.note.link)})}
+                className={classNames('link', {empty: [null, undefined].includes(props.note.link) && linkFocused !== true})}
                 value={props.note.link ?? ''}
                 onChange={(evt) => setLink(evt.target.value)}
                 onClick={() => shell.openExternal(props.note.link)}
@@ -158,6 +159,9 @@ export default function Note(props: {note: INote}): JSX.Element {
                         evt.preventDefault();
                     }
                 }}
+                onFocus={() => setLinkFocused(true)}
+                onBlur={() => setLinkFocused(false)}
+                placeholder={'Link'}
                 spellCheck={false}
             />
             {
