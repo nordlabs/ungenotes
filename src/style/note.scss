@@ -26,6 +26,10 @@
       color: #212f56;
       cursor: pointer;
 
+      &.empty {
+        display: none;
+      }
+
       &:hover {
         text-decoration: underline;
       }

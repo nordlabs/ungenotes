@@ -6,7 +6,7 @@ import {shell} from 'electron';
 import {useAppDispatch} from '../util/hooks';
 import {TrashIcon} from '@heroicons/react/solid';
 
-export default function Note(props: {note: INote}) {
+export default function Note(props: {note: INote}): JSX.Element {
     const container = useRef<HTMLDivElement>();
     const titleContainer = useRef<HTMLInputElement>();
     const descriptionContainer = useRef<HTMLTextAreaElement>();
@@ -147,25 +147,21 @@ export default function Note(props: {note: INote}) {
                 }}
                 spellCheck={false}
             />
-            {
-                props.note.link ?
-                    <input
-                        ref={linkContainer}
-                        className={classNames('link')}
-                        value={props.note.link}
-                        onChange={(evt) => setLink(evt.target.value)}
-                        onClick={() => shell.openExternal(props.note.link)}
-                        onKeyDown={(evt) => {
-                            if (evt.key === 'ArrowUp') {
-                                descriptionContainer.current.focus();
-                                evt.stopPropagation();
-                                evt.preventDefault();
-                            }
-                        }}
-                        spellCheck={false}
-                    /> :
-                    null
-            }
+            <input
+                ref={linkContainer}
+                className={classNames('link', {empty: [null, undefined].includes(props.note.link)})}
+                value={props.note.link ?? ''}
+                onChange={(evt) => setLink(evt.target.value)}
+                onClick={() => shell.openExternal(props.note.link)}
+                onKeyDown={(evt) => {
+                    if (evt.key === 'ArrowUp') {
+                        descriptionContainer.current.focus();
+                        evt.stopPropagation();
+                        evt.preventDefault();
+                    }
+                }}
+                spellCheck={false}
+            />
             {
                 props.note.tags ?
                     props.note.tags.map((t) => <span className={classNames('tag')} style={{color: t.color}}>{t.name}</span>) :
