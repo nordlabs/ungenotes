@@ -1,6 +1,12 @@
-import React, {KeyboardEvent, MutableRefObject, useRef, useState} from 'react';
+import React, {KeyboardEvent, MutableRefObject, useEffect, useRef, useState} from 'react';
 import classNames from 'classnames';
-import {changeDescriptionOfNote, changeLinkOfNote, changeTitleOfNote, removeNote} from '../redux/dataSlice';
+import {
+    changeDescriptionOfNote,
+    changeLinkOfNote,
+    changeTitleOfNote,
+    moveNoteInCategory,
+    removeNote
+} from '../redux/dataSlice';
 import AutoHeightTextarea from './AutoHeightTextarea';
 import {shell} from 'electron';
 import {useAppDispatch} from '../util/hooks';
@@ -24,6 +30,17 @@ export default function Note(
     const deleteNote = () => dispatch(removeNote({note: props.note}));
     const iconStyle = 'h-7 inline';
     const [linkFocused, setLinkFocused] = useState(false);
+    const [justMoved, setJustMoved] = useState(false);
+
+    useEffect(
+        () => {
+            if (justMoved) {
+                container.current.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+                setJustMoved(false);
+            }
+        },
+        [justMoved],
+    );
 
     const ctrlKeyMap: {[key: string]: MutableRefObject<HTMLElement>|((evt: KeyboardEvent<HTMLDivElement>) => void)} = {
         'o': () => {
@@ -54,6 +71,13 @@ export default function Note(
                         val.current.focus();
                     }
                 }
+
+                if (['ArrowUp', 'ArrowDown'].includes(evt.key) && evt.altKey) {
+                    dispatch(moveNoteInCategory({note: props.note, direction: evt.key === 'ArrowUp' ? 'up' : 'down'}));
+                    setJustMoved(true);
+                    evt.preventDefault();
+                    evt.stopPropagation();
+                }
             }}
             draggable={true}
             onDragStart={props.onDragStart}
@@ -79,7 +103,7 @@ export default function Note(
                     value={props.note.title}
                     onChange={(evt) => dispatch(changeTitleOfNote({note: props.note, newTitle: evt.target.value}))}
                     onKeyDown={(evt) => {
-                        if (evt.key === 'Enter' || evt.key === 'ArrowDown') {
+                        if (evt.key === 'Enter' || evt.key === 'ArrowDown' && !evt.altKey) {
                             descriptionContainer.current.focus();
                             evt.stopPropagation();
                             evt.preventDefault();
@@ -124,7 +148,7 @@ export default function Note(
                     setDescription(evt.target.value);
                 }}
                 onKeyDown={(evt) => {
-                    if ('ArrowUp' === evt.key || 'ArrowDown' === evt.key) {
+                    if (!evt.altKey && ('ArrowUp' === evt.key || 'ArrowDown' === evt.key)) {
                         let pos = 0;
                         let currentRow = 0;
                         const lines = props.note.description.split('\n');
@@ -171,7 +195,7 @@ export default function Note(
                 onChange={(evt) => setLink(evt.target.value)}
                 onClick={() => shell.openExternal(props.note.link)}
                 onKeyDown={(evt) => {
-                    if (evt.key === 'ArrowUp' || evt.key === 'Enter' && evt.shiftKey) {
+                    if (!evt.altKey && evt.key === 'ArrowUp' || evt.key === 'Enter' && evt.shiftKey) {
                         descriptionContainer.current.focus();
                         evt.stopPropagation();
                         evt.preventDefault();
