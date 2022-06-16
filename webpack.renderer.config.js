@@ -15,4 +15,9 @@ module.exports = {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css']
   },
   target: 'electron-renderer',
+  output: {
+    // this was added for compatibility, see https://webpack.js.org/configuration/output/#outputhashfunction and
+    // https://nodejs.org/api/crypto.html#crypto_crypto_createhash_algorithm_options
+    hashFunction: 'xxhash64'
+  }
 };
