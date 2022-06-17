@@ -151,7 +151,7 @@ export default function Note(
                     if (!evt.altKey && ('ArrowUp' === evt.key || 'ArrowDown' === evt.key)) {
                         let pos = 0;
                         let currentRow = 0;
-                        const lines = props.note.description.split('\n');
+                        const lines = (props.note.description ?? '').split('\n');
 
                         lines
                             .forEach((p, i) => {
