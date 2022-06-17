@@ -193,7 +193,13 @@ export default function Note(
                 className={classNames('link', {empty: [null, undefined].includes(props.note.link) && linkFocused !== true})}
                 value={props.note.link ?? ''}
                 onChange={(evt) => setLink(evt.target.value)}
-                onClick={() => shell.openExternal(props.note.link)}
+                onClick={(evt) => {
+                    if (evt.altKey || evt.ctrlKey || evt.shiftKey) {
+                        return;
+                    }
+
+                    shell.openExternal(props.note.link);
+                }}
                 onKeyDown={(evt) => {
                     if (!evt.altKey && evt.key === 'ArrowUp' || evt.key === 'Enter' && evt.shiftKey) {
                         descriptionContainer.current.focus();
@@ -202,7 +208,26 @@ export default function Note(
                     }
                 }}
                 onFocus={() => setLinkFocused(true)}
-                onBlur={() => setLinkFocused(false)}
+                onBlur={() => {
+                    if (![null, undefined].includes(props.note.link)) {
+                        if (!props.note.link.trim().startsWith('http://') && !props.note.link.trim().startsWith('https://')) {
+                            setLink(`https://${props.note.link.trim()}`);
+                        }
+                    }
+
+                    setLinkFocused(false);
+                }}
+                onMouseMove={(evt) => {
+                    if (evt.ctrlKey || evt.altKey || evt.shiftKey) {
+                        if (!linkContainer.current.classList.contains('not-clickable')) {
+                            linkContainer.current.classList.add('not-clickable');
+                        }
+                    } else {
+                        if (linkContainer.current.classList.contains('not-clickable')) {
+                            linkContainer.current.classList.remove('not-clickable');
+                        }
+                    }
+                }}
                 placeholder={'Link'}
                 spellCheck={false}
             />
