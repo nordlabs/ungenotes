@@ -30,7 +30,7 @@
       height: auto;
     }
 
-    &.link {
+    &.link:not(.not-clickable) {
       color: #212f56;
       cursor: pointer;
 
