@@ -10,6 +10,24 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
   app.quit();
 }
 
+let saved = false;
+
+app.on('before-quit', (e) => {
+  if (saved) {
+    return;
+  }
+
+  // prevent quit for now
+  e.preventDefault();
+
+  // trigger save
+  Store.saveAll();
+  saved = true;
+
+  // now re-trigger quit
+  app.quit();
+});
+
 const createWindow = (): void => {
   const store = Store.getInstance<{width: number, height: number, asd: string}>('settings');
 
