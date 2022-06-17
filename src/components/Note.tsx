@@ -31,6 +31,7 @@ export default function Note(
     const iconStyle = 'h-7 inline';
     const [linkFocused, setLinkFocused] = useState(false);
     const [justMoved, setJustMoved] = useState(false);
+    const [dragEnabled, setDragEnabled] = useState(false);
 
     useEffect(
         () => {
@@ -79,7 +80,7 @@ export default function Note(
                     evt.stopPropagation();
                 }
             }}
-            draggable={true}
+            draggable={dragEnabled}
             onDragStart={props.onDragStart}
             onDragOver={props.onDragOver}
             onDrop={props.onDrop}
@@ -91,7 +92,11 @@ export default function Note(
                 <span><TrashIcon className={iconStyle} />Löschen</span>
             </span>
             <div className={classNames('flex')}>
-                <span title={'Verschieben'}>
+                <span
+                    title={'Verschieben'}
+                    onMouseDown={() => setDragEnabled(true)}
+                    onMouseUp={() => setDragEnabled(false)}
+                >
                     <SelectorIcon
                         className={classNames(iconStyle, 'move', 'pl-1.5 pr-1.5 pt-1')}
                     />
