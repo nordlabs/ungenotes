@@ -228,6 +228,11 @@ export default function Note(
                         }
                     }
                 }}
+                onMouseLeave={() => {
+                    if (linkContainer.current.classList.contains('not-clickable')) {
+                        linkContainer.current.classList.remove('not-clickable');
+                    }
+                }}
                 placeholder={'Link'}
                 spellCheck={false}
             />
