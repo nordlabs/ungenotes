@@ -37,3 +37,14 @@ export interface IData {
     sidebarOpened: boolean;
     selectedCategory?: number;
 }
+
+export enum Theme {
+    standardBright = 'standard-bright',
+    standardDark = 'standard-dark',
+    ungeBright = 'unge-bright',
+    ungeDark = 'unge-dark',
+}
+
+export interface IPreferences {
+    theme: Theme;
+}

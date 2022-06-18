@@ -39,7 +39,7 @@ export default function Category(props: { category: ICategory }): JSX.Element {
                 }
             }}
         >
-            <h2 className={classNames(['flex'])}>
+            <h2 className={classNames(['flex', 'text-4xl', 'mb-2'])}>
                 <input
                     spellCheck={false}
                     className={classNames(['bg-transparent', 'outline-none', 'flex-auto'])}
