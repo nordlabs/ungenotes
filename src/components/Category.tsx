@@ -6,6 +6,7 @@ import {NoteHelper} from '../util/NoteHelper';
 import {useAppDispatch, useAppSelector} from '../util/hooks';
 import {PencilIcon, PlusIcon, TrashIcon} from '@heroicons/react/solid';
 import {useNavigate} from 'react-router-dom';
+import {ICategory, INote} from '../util/types';
 
 export default function Category(props: { category: ICategory }): JSX.Element {
     const dispatch = useAppDispatch();

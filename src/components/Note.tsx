@@ -11,6 +11,7 @@ import AutoHeightTextarea from './AutoHeightTextarea';
 import {shell} from 'electron';
 import {useAppDispatch} from '../util/hooks';
 import {SelectorIcon, TrashIcon} from '@heroicons/react/solid';
+import {INote} from '../util/types';
 
 export default function Note(
     props: {
