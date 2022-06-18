@@ -27,7 +27,7 @@ export const dataSlice = createSlice<
     }
     >
 ({
-    name: 'baseList',
+    name: 'data',
     initialState: {
         categories: store.get('categories') ?? [],
         tags: store.get('tags') ?? [],
