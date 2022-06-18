@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {Store} from '../util/Store';
+import {ICategory, IData, INote} from '../util/types';
 
 const store = Store.getInstance<IData>('data');
 
@@ -27,7 +28,7 @@ export const dataSlice = createSlice<
     }
     >
 ({
-    name: 'baseList',
+    name: 'data',
     initialState: {
         categories: store.get('categories') ?? [],
         tags: store.get('tags') ?? [],

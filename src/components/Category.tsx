@@ -6,6 +6,7 @@ import {NoteHelper} from '../util/NoteHelper';
 import {useAppDispatch, useAppSelector} from '../util/hooks';
 import {PencilIcon, PlusIcon, TrashIcon} from '@heroicons/react/solid';
 import {useNavigate} from 'react-router-dom';
+import {ICategory, INote} from '../util/types';
 
 export default function Category(props: { category: ICategory }): JSX.Element {
     const dispatch = useAppDispatch();
@@ -38,7 +39,7 @@ export default function Category(props: { category: ICategory }): JSX.Element {
                 }
             }}
         >
-            <h2 className={classNames(['flex'])}>
+            <h2 className={classNames(['flex', 'text-4xl', 'mb-2'])}>
                 <input
                     spellCheck={false}
                     className={classNames(['bg-transparent', 'outline-none', 'flex-auto'])}

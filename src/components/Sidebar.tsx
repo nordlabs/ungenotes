@@ -37,7 +37,7 @@ export default function Sidebar(): JSX.Element {
                     <li><a href="#"><BookmarkIcon className={iconStyle}/>Favoriten</a></li>
                     <li><a href="#"><ClockIcon className={iconStyle}/>Historie</a></li>
                     <hr/>
-                    <li><a href="#"><AdjustmentsIcon className={iconStyle}/>Einstellungen</a></li>
+                    <li><Link to={'/preferences'}><AdjustmentsIcon className={iconStyle}/>Einstellungen</Link></li>
 
                     <li><a href="#"><ChatIcon className={iconStyle}/>Kontakt</a></li>
                     <hr/>

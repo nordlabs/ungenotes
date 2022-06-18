@@ -14,6 +14,11 @@ export default function CategoryRoute(): JSX.Element {
         () => {
             // mark category as selected
             dispatch(selectCategory({category}));
+
+            return () => {
+                // remove selected category on dismount
+                dispatch(selectCategory({}));
+            };
         },
         [categoryId],
     );

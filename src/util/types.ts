@@ -1,4 +1,4 @@
-interface INote {
+export interface INote {
     /** unique note id */
     id: number;
     /** title of this note */
@@ -15,14 +15,14 @@ interface INote {
     deleted?: boolean;
 }
 
-interface ITag {
+export interface ITag {
     /** unique tag name */
     name: string;
     /** color hex code */
     color: string;
 }
 
-interface ICategory {
+export interface ICategory {
     /** unique id */
     id: number;
     /** category title */
@@ -31,9 +31,20 @@ interface ICategory {
     notes: INote[];
 }
 
-interface IData {
+export interface IData {
     categories: ICategory[];
     tags: ITag[];
     sidebarOpened: boolean;
     selectedCategory?: number;
+}
+
+export enum Theme {
+    standardBright = 'standard-bright',
+    standardDark = 'standard-dark',
+    ungeBright = 'unge-bright',
+    ungeDark = 'unge-dark',
+}
+
+export interface IPreferences {
+    theme: Theme;
 }
