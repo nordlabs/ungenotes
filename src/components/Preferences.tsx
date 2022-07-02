@@ -42,7 +42,7 @@ export default function Preferences(
                         ],
                     }].map((conf) => {
                         return (
-                            <>
+                            <React.Fragment key={conf.title}>
                                 <h2 className={captionTitleClasses}>{conf.title}</h2>
                                 <table className={tableClasses}>
                                     <tbody>
@@ -60,7 +60,7 @@ export default function Preferences(
                                         }
                                     </tbody>
                                 </table>
-                            </>
+                            </React.Fragment>
                         );
                     })
                 }
