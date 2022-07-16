@@ -15,7 +15,7 @@ export const dataSlice = createSlice<
         removeNote: (state: IData, more: {payload: {note: INote}}) => void,
         setNotesOfCategory: (state: IData, more: {payload: {notes: INote[], category: ICategory}}) => any,
         moveNoteInCategory: (state: IData, more: {payload: {note: INote, direction: 'up'|'down'}}) => any
-        moveNoteFromCategoryToCategory: (state: IData, more: {payload: {note: INote, fromCategory: ICategory, toCategory: ICategory}}) => void
+        moveNoteToCategory: (state: IData, more: {payload: {noteId: number, toCategoryId: number}}) => void
         addCategory: (state: IData, more: {payload: {category: ICategory}}) => void,
         renameCategory: (state: IData, more: {payload: {category: ICategory, newName: string}}) => void,
         changeTitleOfNote: (state: IData, more: {payload: {note: INote, newTitle: string}}) => void,
@@ -52,9 +52,28 @@ export const dataSlice = createSlice<
             });
             store.setPartial(state);
         },
-        moveNoteFromCategoryToCategory: () => {
-            console.log('moveNoteFromCategoryToCategory reducer called');
-        },
+        moveNoteToCategory: (state, more) => {
+            let note, fromCategory;
+            const toCategory = state.categories.find((c) => c.id === more.payload.toCategoryId);
+
+            for (const c of state.categories) {
+                note = c.notes.find((n) => n.id === more.payload.noteId);
+
+                if (note) {
+                    fromCategory = c;
+                    break;
+                }
+            }
+
+            if (!note) {
+                return;
+            }
+
+            toCategory.notes.push(note);
+            fromCategory.notes.splice(fromCategory.notes.indexOf(note), 1);
+            store.setPartial(state);
+        }
+        ,
         addCategory: (state, more) => {
             state.categories.push(more.payload.category);
             store.setPartial(state);
@@ -156,7 +175,7 @@ export const {
     setNotesOfCategory,
     removeNote,
     moveNoteInCategory,
-    moveNoteFromCategoryToCategory,
+    moveNoteToCategory,
     addCategory,
     renameCategory,
     changeTitleOfNote,

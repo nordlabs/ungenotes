@@ -74,7 +74,7 @@ export default function Category(props: { category: ICategory }): JSX.Element {
 
                                 // Note: this is only for Firefox.
                                 // Without it, the DnD won't work.
-                                evt.dataTransfer.setData('text/html', '');
+                                evt.dataTransfer.setData('noteid', n.id.toString());
                             }}
                             onDragOver={(evt) => {
                                 evt.preventDefault();
