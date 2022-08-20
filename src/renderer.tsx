@@ -35,11 +35,13 @@ import App from './components/App';
 import {Provider} from 'react-redux';
 import {store} from './redux/store';
 import {HashRouter} from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 ReactDOM.render(
     <Provider store={store}>
         <HashRouter>
             <App />
+            <Toaster />
         </HashRouter>
     </Provider>,
     document.getElementById('container')

@@ -10,9 +10,9 @@ import {
 import {Link, useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../util/hooks';
 import {addCategory, toggleSidebar} from '../redux/dataSlice';
-import classNames from 'classnames';
 import {PlusIcon} from '@heroicons/react/solid';
 import {CategoryHelper} from '../util/CategoryHelper';
+import CategoryLink from './CategoryLink';
 
 export default function Sidebar(): JSX.Element {
     const iconStyle = 'h-7 w-7 pb-1 inline pr-3';
@@ -44,17 +44,7 @@ export default function Sidebar(): JSX.Element {
                     <li><h6>KATEGORIEN</h6></li>
                     {
                         categories.map(
-                            (c) => (
-                                <li key={c.id} className={classNames({active: selectedCategory === c.id, empty: c.title.trim() === ''})}>
-                                    <Link to={`/category/${c.id}`} className={classNames('link')}>
-                                        {
-                                            c.title.trim() !== '' ?
-                                                c.title :
-                                                '<kein Titel>'
-                                        }
-                                    </Link>
-                                </li>
-                            )
+                            (c) => <CategoryLink category={c} selectedCategory={selectedCategory} key={c.id}/>
                         )
                     }
                     <li>

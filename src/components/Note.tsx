@@ -105,7 +105,7 @@ export default function Note(
                 <input
                     ref={titleContainer}
                     className={classNames('title', 'flex-auto')}
-                    placeholder={'title'}
+                    placeholder={'Titel'}
                     value={props.note.title}
                     onChange={(evt) => dispatch(changeTitleOfNote({note: props.note, newTitle: evt.target.value}))}
                     onKeyDown={(evt) => {
@@ -121,7 +121,7 @@ export default function Note(
             <AutoHeightTextarea
                 textareaRef={descriptionContainer}
                 className={classNames('description')}
-                placeholder={'description'}
+                placeholder={'Beschreibung'}
                 value={props.note.description ?? ''}
                 onPaste={async (evt) => {
                     if (!navigator || !navigator.clipboard) {
