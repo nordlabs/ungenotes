@@ -73,7 +73,9 @@ const menu = Menu.buildFromTemplate([
       {label: 'Heranzoomen', role: 'zoomIn',},
       {label: 'Herauszoomen', role: 'zoomOut',},
       {type: 'separator',},
-      {label: 'Vollbild', role: 'togglefullscreen',}
+      {label: 'Vollbild', role: 'togglefullscreen',},
+      {type: 'separator',},
+      {label: 'Zeige Ladebildschirm', type: 'checkbox', click: (i) => mainWindow.webContents.send(i.checked ? 'showLoadingScreen' : 'hideLoadingScreen')},
     ],
   },
   {

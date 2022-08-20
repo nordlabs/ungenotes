@@ -36,6 +36,11 @@ import {Provider} from 'react-redux';
 import {store} from './redux/store';
 import {HashRouter} from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import {LoadingScreen} from './util/LoadingScreen';
+import {Store} from './util/Store';
+import {IPreferences} from './util/types';
+
+const minLoadingScreenDuration = (LoadingScreen.minLoadingScreenTime + (Math.random() * LoadingScreen.loadingScreenDelayVariance)) * 1000;
 
 ReactDOM.render(
     <Provider store={store}>
@@ -44,5 +49,24 @@ ReactDOM.render(
             <Toaster />
         </HashRouter>
     </Provider>,
-    document.getElementById('container')
+    document.getElementById('container'),
+    () => {
+        const loadingScreen = document.getElementById('loading-screen');
+
+        if (loadingScreen) {
+            const now = new Date();
+            const loadingStart = new Date(loadingScreen.getAttribute('data-loading-start'));
+            const alreadyLoadingTime = now.getTime() - loadingStart.getTime();
+            const minimizeLoadingScreenTime = Store.getInstance<IPreferences>('preferences').get('minimizeLoadingScreenTime') === true;
+
+            if (alreadyLoadingTime > minLoadingScreenDuration || minimizeLoadingScreenTime) {
+                LoadingScreen.hide();
+            } else {
+                setTimeout(
+                    () => LoadingScreen.hide(),
+                    minLoadingScreenDuration - alreadyLoadingTime,
+                );
+            }
+        }
+    },
 );

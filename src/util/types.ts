@@ -47,4 +47,5 @@ export enum Theme {
 
 export interface IPreferences {
     theme: Theme;
+    minimizeLoadingScreenTime: boolean;
 }

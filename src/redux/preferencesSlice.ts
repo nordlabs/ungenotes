@@ -8,16 +8,23 @@ export const preferencesSlice = createSlice<
     IPreferences,
     {
         setTheme: (state: IPreferences, more: {payload: {theme: Theme}}) => void,
+        setMinimizeLoadingScreenTime: (state: IPreferences, more: {payload: {value: boolean}}) => void,
     }
     >
 ({
     name: 'preferences',
     initialState: {
         theme: store.get<Theme>('theme') ?? Theme.standardBright,
+        minimizeLoadingScreenTime: store.get<boolean>('minimizeLoadingScreenTime') ?? false,
     },
     reducers: {
         setTheme: (state, more) => {
             state.theme = more.payload.theme;
+
+            store.setPartial(state);
+        },
+        setMinimizeLoadingScreenTime: (state, more) => {
+            state.minimizeLoadingScreenTime = more.payload.value;
 
             store.setPartial(state);
         },
@@ -27,5 +34,6 @@ export const preferencesSlice = createSlice<
 // Action creators are generated for each case reducer function
 export const {
     setTheme,
+    setMinimizeLoadingScreenTime,
 } = preferencesSlice.actions;
 export const preferencesSliceReducer = preferencesSlice.reducer;
