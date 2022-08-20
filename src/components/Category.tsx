@@ -4,7 +4,7 @@ import Note from './Note';
 import {addNoteToCategory, changeTitleOfCategory, removeCategory, setNotesOfCategory} from '../redux/dataSlice';
 import {NoteHelper} from '../util/NoteHelper';
 import {useAppDispatch, useAppSelector} from '../util/hooks';
-import {PencilIcon, PlusIcon, TrashIcon} from '@heroicons/react/solid';
+import {DotsVerticalIcon, PlusIcon, TrashIcon} from '@heroicons/react/solid';
 import {useNavigate} from 'react-router-dom';
 import {ICategory, INote} from '../util/types';
 
@@ -52,7 +52,8 @@ export default function Category(props: { category: ICategory }): JSX.Element {
                         newTitle: e.target.value
                     }))}
                 />
-                <PencilIcon className={classNames(iconStyle, 'self-center')} />
+                <DotsVerticalIcon className={classNames( 'h-7 self-center')} />
+
             </h2>
             {
                 (props.category.notes ?? []).map((n) => {
@@ -129,10 +130,11 @@ export default function Category(props: { category: ICategory }): JSX.Element {
                 className={classNames('add-note')}
                 onClick={addNote}
             >
-                <button><PlusIcon className={iconStyle} />Notiz</button>
+                <button title={'Neue Notiz erstellen'}><PlusIcon className={iconStyle} />Notiz</button>
             </div>
             <div className={classNames(['flex', 'justify-end', 'text-red-600'])}>
                 <button
+                    title={'Kategorie löschen'}
                     onClick={() => {
                         if (confirm(`Die Kategorie '${props.category.title}' löschen?`)) {
                             const categoryIdx = categories.indexOf(props.category);

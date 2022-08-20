@@ -8,11 +8,11 @@
 
     button {
       opacity: 0.35;
-      border: 1px dashed grey;
       border-radius: 5px;
       padding: 5px 15px;
-      background-color: #f8f8f8;
       cursor: pointer;
+      border: 1px solid var(--secondary-color);
+      color: var(--font-color);
     }
 
     &:hover button {
