@@ -26,6 +26,7 @@ $gunmetal: rgba(52, 58, 64, 1);
   margin: 0;
   list-style: none;
   text-decoration: none;
+  color: var(--font-color);
 }
 
 .sidebar {
@@ -36,16 +37,15 @@ $gunmetal: rgba(52, 58, 64, 1);
   width: 200px;
   height: 100%;
   border-right: 1px solid rgba(108, 117, 125, 0.1);
-  background: $gainsboro;
+  background: var(--secondary-color);
   transition: all .5s ease;
 
   header {
     font-size: 22px;
     font-weight: 800;
-    color: $charleston-green;
     line-height: 100px;
     text-align: center;
-    background: $gainsboro;
+    color: var(--sidebar-font-color);
     user-select: none;
   }
 
@@ -59,9 +59,10 @@ $gunmetal: rgba(52, 58, 64, 1);
     width: 100%;
     line-height: 65px;
     font-size: 10px;
-    color: $charleston-green;
     padding-left: 40px;
     box-sizing: border-box;
+    color: var(--sidebar-font-color);
+
 
     &.link {
       line-height: normal;
@@ -73,6 +74,10 @@ $gunmetal: rgba(52, 58, 64, 1);
     font-size: 16px;
     border-top: 1px solid rgba(255,255,255,.1);
     transition: .4s;
+
+    svg{
+      stroke: var(--sidebar-font-color);
+    }
 
     i {
       margin-right: 16px;
@@ -123,27 +128,25 @@ ul li.empty a {
 label {
   #btn {
     position: absolute;
-    background: $gainsboro;
     border: 1px solid rgba(108, 117, 125, 0.1);
-    border-radius: 3px;
     cursor: pointer;
     left: 0;
-    top: 23px;
+    bottom: calc(100vh/2.2);
     font-size: 35px;
-    color: $charleston-green;
     padding: 6px 12px;
     transition: all .5s;
+    background-color:var(--secondary-color);
+    color: var(--sidebar-font-color);
   }
 
   #cancel {
+    background-color:var(--secondary-color);
+    color: var(--sidebar-font-color);
     position: absolute;
-    background: $gainsboro;
-    border-radius: 3px;
     cursor: pointer;
     left: -195px;
-    top: 23px;
+    bottom: calc(100vh/2.2);
     font-size: 28px;
-    color: $charleston-green;
     padding: 12px 12px;
     transition: all .5s ease;
     border-top: 1px solid rgba(108, 117, 125, 0.1);

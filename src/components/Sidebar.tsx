@@ -23,11 +23,11 @@ export default function Sidebar(): JSX.Element {
     const navigate = useNavigate();
 
     return (
-        <div className={'fixed z-50'}>
+        <div className={'z-50'}>
             <input type="checkbox" id="check" defaultChecked={sidebarOpened} />
             <label htmlFor="check">
-                <p id="btn" onClick={() => dispatch(toggleSidebar())}>→</p>
-                <p id="cancel" onClick={() => dispatch(toggleSidebar())}>←</p>
+                <p id="btn" onClick={() => dispatch(toggleSidebar())}>❯</p>
+                <p id="cancel" onClick={() => dispatch(toggleSidebar())}>❮</p>
             </label>
             <div className="sidebar">
                 <header>ungenotes</header>
