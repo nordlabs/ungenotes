@@ -46,5 +46,3 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('container')
 );
-
-

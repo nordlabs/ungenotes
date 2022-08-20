@@ -39,7 +39,7 @@ export default function Sidebar(): JSX.Element {
                     <hr/>
                     <li><NavLink className={(navData) => classNames({active: navData.isActive})} to={'/preferences'}><AdjustmentsIcon className={iconStyle}/>Einstellungen</NavLink></li>
 
-                    <li><a href="#"><ChatIcon className={iconStyle}/>Kontakt</a></li>
+                    <li><NavLink className={(navData) => classNames({active: navData.isActive})} to={'/contact'}><ChatIcon className={iconStyle}/>Kontakt</NavLink></li>
                     <hr/>
                     <li><h6>KATEGORIEN</h6></li>
                     {
