@@ -8,14 +8,8 @@ export class LoadingScreen {
         const loadingScreen = document.getElementById('loading-screen');
 
         if (loadingScreen) {
+            loadingScreen.style.zIndex = '50';
             loadingScreen.style.opacity = '1';
-
-            setTimeout(
-                () => {
-                    loadingScreen.style.zIndex = '50';
-                },
-                this.zIndexDelay * 1000,
-            );
         }
     }
 
