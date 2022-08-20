@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {Store} from '../util/Store';
 import {ICategory, IData, INote} from '../util/types';
+import {Toaster} from '../util/Toaster';
 
 const store = Store.getInstance<IData>('data');
 
@@ -66,12 +67,14 @@ export const dataSlice = createSlice<
             }
 
             if (!note) {
+                Toaster.error('Notiz konnte nicht verschoben werden');
                 return;
             }
 
             toCategory.notes.push(note);
             fromCategory.notes.splice(fromCategory.notes.indexOf(note), 1);
             store.setPartial(state);
+            Toaster.success(`Notiz nach "${toCategory.title}" verschoben`);
         }
         ,
         addCategory: (state, more) => {
