@@ -3,7 +3,7 @@ import toast, {ToastOptions} from 'react-hot-toast';
 export class Toaster {
     private static defaultOptions: ToastOptions = {
         position: 'bottom-center',
-        duration: 113500,
+        duration: 3500,
         style: {
             padding: '10px 40px',
         },

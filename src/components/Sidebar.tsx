@@ -33,9 +33,9 @@ export default function Sidebar(): JSX.Element {
                 <header>ungenotes</header>
                 <ul>
                     <li><a href="#"><CollectionIcon className={iconStyle}/>Dashboard</a></li>
-                    <li><a href="#"><PencilAltIcon className={iconStyle}/>Notizen</a></li>
-                    <li><a href="#"><BookmarkIcon className={iconStyle}/>Favoriten</a></li>
-                    <li><a href="#"><ClockIcon className={iconStyle}/>Historie</a></li>
+                    {/*<li><a href="#"><PencilAltIcon className={iconStyle}/>Notizen</a></li>*/}
+                    {/*<li><a href="#"><BookmarkIcon className={iconStyle}/>Favoriten</a></li>*/}
+                    {/*<li><a href="#"><ClockIcon className={iconStyle}/>Historie</a></li>*/}
                     <hr/>
                     <li><NavLink className={(navData) => classNames({active: navData.isActive})} to={'/preferences'}><AdjustmentsIcon className={iconStyle}/>Einstellungen</NavLink></li>
 
