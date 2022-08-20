@@ -1,13 +1,21 @@
 import React from 'react';
 import Sidebar from './Sidebar';
-import {Route, Routes } from 'react-router-dom';
+import {Route, Routes, useNavigate} from 'react-router-dom';
 import CategoryRoute from '../routes/CategoryRoute';
 import {useAppSelector} from '../util/hooks';
 import Preferences from './Preferences';
 import classNames from 'classnames';
+import {ipcRenderer} from 'electron';
+import Contact from '../routes/Contact';
 
 export default function App(): JSX.Element {
     const sidebarOpened = useAppSelector(state => state.data.sidebarOpened);
+    const navigate = useNavigate();
+
+    // register callbacks
+    ipcRenderer.on('navigateContact', () => {
+        navigate('/contact');
+    });
 
     return (
         <div>
@@ -18,6 +26,7 @@ export default function App(): JSX.Element {
                         <Route path={':categoryId'} element={<CategoryRoute />} />
                     </Route>
                     <Route path={'preferences'} element={<Preferences />} />
+                    <Route path={'contact'} element={<Contact />} />
                 </Routes>
             </div>
         </div>

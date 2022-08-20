@@ -1,18 +1,18 @@
 import classNames from 'classnames';
-import {Link} from 'react-router-dom';
-import React, {useState} from 'react';
+import {NavLink} from 'react-router-dom';
+import React from 'react';
 import {ICategory} from '../util/types';
-import {useAppDispatch, useAppSelector} from '../util/hooks';
+import {useAppDispatch} from '../util/hooks';
 import {moveNoteToCategory} from '../redux/dataSlice';
 
-export default function CategoryLink(props: {category: ICategory, selectedCategory?: number}): JSX.Element {
+export default function CategoryLink(props: {category: ICategory}): JSX.Element {
     const c = props.category;
     const dispatch = useAppDispatch();
 
     return (
         <li
             key={c.id}
-            className={classNames({active: props.selectedCategory === c.id, empty: c.title.trim() === ''})}
+            className={classNames({empty: c.title.trim() === ''})}
             onDragOver={(evt) => {
                 if (!evt.dataTransfer.types.includes('noteid')) {
                     return;
@@ -32,13 +32,13 @@ export default function CategoryLink(props: {category: ICategory, selectedCatego
                 dispatch(moveNoteToCategory({toCategoryId: c.id, noteId}));
             }}
         >
-            <Link to={`/category/${c.id}`} className={classNames('link')}>
+            <NavLink className={(navData) => classNames({active: navData.isActive}, 'link')} to={`/category/${c.id}`}>
                 {
                     c.title.trim() !== '' ?
                         c.title :
                         '<kein Titel>'
                 }
-            </Link>
+            </NavLink>
         </li>
     );
 }
