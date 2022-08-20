@@ -21,6 +21,8 @@ export const preferencesSlice = createSlice<
         setTheme: (state, more) => {
             state.theme = more.payload.theme;
 
+            document.body.setAttribute('data-theme', state.theme.toString());
+
             store.setPartial(state);
         },
         setMinimizeLoadingScreenTime: (state, more) => {
