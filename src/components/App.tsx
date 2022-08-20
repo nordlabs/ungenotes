@@ -7,6 +7,7 @@ import Preferences from './Preferences';
 import classNames from 'classnames';
 import {ipcRenderer} from 'electron';
 import Contact from '../routes/Contact';
+import {LoadingScreen} from '../util/LoadingScreen';
 
 export default function App(): JSX.Element {
     const sidebarOpened = useAppSelector(state => state.data.sidebarOpened);
@@ -15,6 +16,13 @@ export default function App(): JSX.Element {
     // register callbacks
     ipcRenderer.on('navigateContact', () => {
         navigate('/contact');
+    });
+
+    ipcRenderer.on('showLoadingScreen', () => {
+        LoadingScreen.show();
+    });
+    ipcRenderer.on('hideLoadingScreen', () => {
+        LoadingScreen.hide();
     });
 
     return (
