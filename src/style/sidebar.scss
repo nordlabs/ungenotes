@@ -80,11 +80,11 @@ $gunmetal: rgba(52, 58, 64, 1);
   }
 }
 
-ul li:hover a, ul li.active a {
+ul li:hover a, ul li a.active {
   padding-left: 50px!important;
 }
 
-ul li.active a {
+ul li a.active {
   font-weight: bold;
 }
 

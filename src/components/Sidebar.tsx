@@ -7,18 +7,18 @@ import {
     ChatIcon,
     CollectionIcon
 } from '@heroicons/react/outline';
-import {Link, useNavigate} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../util/hooks';
 import {addCategory, toggleSidebar} from '../redux/dataSlice';
 import {PlusIcon} from '@heroicons/react/solid';
 import {CategoryHelper} from '../util/CategoryHelper';
 import CategoryLink from './CategoryLink';
+import classNames from 'classnames';
 
 export default function Sidebar(): JSX.Element {
     const iconStyle = 'h-7 w-7 pb-1 inline pr-3';
     const categories = useAppSelector(state => state.data.categories);
     const sidebarOpened = useAppSelector(state => state.data.sidebarOpened);
-    const selectedCategory = useAppSelector(state => state.data.selectedCategory);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
@@ -37,14 +37,14 @@ export default function Sidebar(): JSX.Element {
                     <li><a href="#"><BookmarkIcon className={iconStyle}/>Favoriten</a></li>
                     <li><a href="#"><ClockIcon className={iconStyle}/>Historie</a></li>
                     <hr/>
-                    <li><Link to={'/preferences'}><AdjustmentsIcon className={iconStyle}/>Einstellungen</Link></li>
+                    <li><NavLink className={(navData) => classNames({active: navData.isActive})} to={'/preferences'}><AdjustmentsIcon className={iconStyle}/>Einstellungen</NavLink></li>
 
                     <li><a href="#"><ChatIcon className={iconStyle}/>Kontakt</a></li>
                     <hr/>
                     <li><h6>KATEGORIEN</h6></li>
                     {
                         categories.map(
-                            (c) => <CategoryLink category={c} selectedCategory={selectedCategory} key={c.id}/>
+                            (c) => <CategoryLink category={c} key={c.id}/>
                         )
                     }
                     <li>
