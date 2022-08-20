@@ -38,7 +38,7 @@ import {HashRouter} from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import {LoadingScreen} from './util/LoadingScreen';
 import {Store} from './util/Store';
-import {IPreferences} from './util/types';
+import {IPreferences, Theme} from './util/types';
 
 const minLoadingScreenDuration = (LoadingScreen.minLoadingScreenTime + (Math.random() * LoadingScreen.loadingScreenDelayVariance)) * 1000;
 
@@ -51,13 +51,15 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('container'),
     () => {
+        // loading screen stuff
         const loadingScreen = document.getElementById('loading-screen');
+        const preferences = Store.getInstance<IPreferences>('preferences');
 
         if (loadingScreen) {
             const now = new Date();
             const loadingStart = new Date(loadingScreen.getAttribute('data-loading-start'));
             const alreadyLoadingTime = now.getTime() - loadingStart.getTime();
-            const minimizeLoadingScreenTime = Store.getInstance<IPreferences>('preferences').get('minimizeLoadingScreenTime') === true;
+            const minimizeLoadingScreenTime = preferences.get('minimizeLoadingScreenTime') === true;
 
             if (alreadyLoadingTime > minLoadingScreenDuration || minimizeLoadingScreenTime) {
                 LoadingScreen.hide();
@@ -68,5 +70,8 @@ ReactDOM.render(
                 );
             }
         }
+
+        // theme stuff
+        document.body.setAttribute('data-theme', (preferences.get('theme') ?? Theme.standardBright).toString());
     },
 );
