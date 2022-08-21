@@ -29,7 +29,7 @@ export default function Note(
     const setDescription = (description: string) => dispatch(changeDescriptionOfNote({note: props.note, newDescription: description}));
     const setLink = (link: string) => dispatch(changeLinkOfNote({note: props.note, link}));
     const deleteNote = () => dispatch(removeNote({note: props.note}));
-    const iconStyle = 'h-7 inline';
+    const iconStyle = 'h-5 inline';
     const [linkFocused, setLinkFocused] = useState(false);
     const [justMoved, setJustMoved] = useState(false);
     const [dragEnabled, setDragEnabled] = useState(false);
@@ -90,7 +90,7 @@ export default function Note(
                 className={classNames('remove', 'text-red-600')}
                 onClick={deleteNote}
             >
-                <span><TrashIcon className={iconStyle} />Löschen</span>
+                <span title={'Löschen'}><TrashIcon className={iconStyle} /></span>
             </span>
             <div className={classNames('flex')}>
                 <span

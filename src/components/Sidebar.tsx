@@ -23,19 +23,19 @@ export default function Sidebar(): JSX.Element {
     const navigate = useNavigate();
 
     return (
-        <div className={'fixed z-50'}>
+        <div className={'z-50'}>
             <input type="checkbox" id="check" defaultChecked={sidebarOpened} />
             <label htmlFor="check">
-                <p id="btn" onClick={() => dispatch(toggleSidebar())}>→</p>
-                <p id="cancel" onClick={() => dispatch(toggleSidebar())}>←</p>
+                <p id="btn" onClick={() => dispatch(toggleSidebar())}>❯</p>
+                <p id="cancel" onClick={() => dispatch(toggleSidebar())}>❮</p>
             </label>
             <div className="sidebar">
                 <header>ungenotes</header>
                 <ul>
                     <li><a href="#"><CollectionIcon className={iconStyle}/>Dashboard</a></li>
-                    <li><a href="#"><PencilAltIcon className={iconStyle}/>Notizen</a></li>
-                    <li><a href="#"><BookmarkIcon className={iconStyle}/>Favoriten</a></li>
-                    <li><a href="#"><ClockIcon className={iconStyle}/>Historie</a></li>
+                    {/*<li><a href="#"><PencilAltIcon className={iconStyle}/>Notizen</a></li>*/}
+                    {/*<li><a href="#"><BookmarkIcon className={iconStyle}/>Favoriten</a></li>*/}
+                    {/*<li><a href="#"><ClockIcon className={iconStyle}/>Historie</a></li>*/}
                     <hr/>
                     <li><NavLink className={(navData) => classNames({active: navData.isActive})} to={'/preferences'}><AdjustmentsIcon className={iconStyle}/>Einstellungen</NavLink></li>
 

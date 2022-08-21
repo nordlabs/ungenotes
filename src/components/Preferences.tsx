@@ -5,26 +5,26 @@ import {setMinimizeLoadingScreenTime, setTheme} from '../redux/preferencesSlice'
 import {Theme} from '../util/types';
 
 export default function Preferences(): JSX.Element {
-    const captionTitleClasses = classNames('text-4xl');
+    const captionTitleClasses = classNames('text-2xl');
     const tableClasses = classNames('w-full', 'mt-3');
     const dispatch = useAppDispatch();
 
     return (
         <div className={classNames('preferences')}>
-            <h1 className={classNames('text-5xl')}>Einstellungen</h1>
-            <div className={classNames('mt-3')}>
+            <h1 className={classNames('text-3xl mb-5')}>Einstellungen</h1>
+            <div className={classNames('mt-3 mb-10')}>
                 Hier können verschiedene Einstellungen vorgenommen werden, welche das Verhalten bzw. das Aussehen der Anwendung bestimmen.
 
                 Alle Änderungen werden automatisch gespeichert.
             </div>
-            <div className={classNames('mt-5')}>
+            <div className={classNames('mt-5 preference-list')}>
                 {
                     [
                         {
                             title: 'Aussehen',
                             children: [
                                 {
-                                    name: 'Thema',
+                                    name: 'Theme',
                                     child: (
                                         <select
                                             value={useAppSelector((state) => state.preferences.theme)}

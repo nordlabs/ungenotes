@@ -7,6 +7,7 @@ export class Toaster {
         style: {
             padding: '10px 40px',
         },
+        className: 'toast',
     };
 
     public static toast(message: string, opts: ToastOptions = {}): string {

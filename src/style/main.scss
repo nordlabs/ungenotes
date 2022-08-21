@@ -7,10 +7,81 @@ $gainsboro: rgba(222, 226, 230, 1);
 $cultured-2: rgba(233, 236, 239, 1);
 
 
+$jungle-green-50: #effaf4;
+$jungle-green-100: #d7f4e3;
+$jungle-green-200: #b3e7cb;
+$jungle-green-300: #81d4ac;
+$jungle-green-400: #4dba89;
+$jungle-green-500: #30b57e;
+$jungle-green-600: #1b8058;
+$jungle-green-700: #166648;
+$jungle-green-800: #14513b;
+$jungle-green-900: #114332;
+
+
+$brand-color: #8599B6;
+$dark-color: #1E293B;
+$mid-color: #CBD5E1;
+$light-color: #F8FAFC;
+
+:root {
+  --primary-color: #1E293B;
+  --secondary-color: white;
+  --font-color: #1E293B;
+  --bg-color: rgba(203, 213, 225, 0.5);
+  --accent-color: #292922; //TBD
+  --note-bg: #FFFFFF;
+  --sidebar-font-color:var(--font-color);
+  --category-bg: rgb(255,255,255);
+
+}
+
+
+[data-theme="standard-dark"] {
+  --primary-color: #0A0708;
+  --secondary-color: #111111;
+  --font-color: #BABABA;
+  --sidebar-font-color:var(--font-color);
+  --bg-color: #000000;
+  --accent-color: #99D2F8;
+  --note-bg: #222222;
+  --category-bg: rgb(0,0,0);
+
+}
+
+[data-theme="unge-bright"] {
+  --primary-color: #9A97F3;
+  --secondary-color: #000000;
+  --font-color: #000000;
+  --sidebar-font-color:#ffffff;
+  --bg-color: rgba(159, 215, 166, 0.9);
+  --accent-color: #B94344;
+  --category-bg: rgba(255,255,255,0.2);
+}
+
+[data-theme="unge-dark"] {
+  --primary-color: #9A97F3;
+  --secondary-color: #000000;
+  --font-color: #BABABA;
+  --sidebar-font-color: #BABABA;
+  --bg-color: #0f110f;
+  --note-bg: #222222;
+  --accent-color: rgba(159, 215, 166, 0.9);
+  --category-bg: rgba(255,255,255,0.2);
+}
+
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif;
   margin: auto;
   min-width: 45rem;
   padding: 2rem;
-  background-color: $cultured-2;
+  background-color: var(--bg-color);
+  color: var(--font-color);
+}
+
+.preference-list h2{
+  border-top: 1px solid;
+  padding-top: 30px;
+  margin-top:60px;
 }
