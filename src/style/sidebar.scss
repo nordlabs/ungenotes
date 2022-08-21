@@ -85,9 +85,12 @@ $gunmetal: rgba(52, 58, 64, 1);
   }
 }
 
-ul li:hover a, ul li a.active {
-  padding-left: 50px!important;
+.sidebar{
+  ul li:hover a, ul li a.active {
+    padding-left: 50px!important;
+  }
 }
+
 
 ul li a.active {
   font-weight: bold;
@@ -157,4 +160,17 @@ label {
 
 hr{
   border: 1px solid rgba(255,255,255,.1);
+}
+
+.sidebar{
+  header{
+    display:flex;
+    justify-content: space-around;
+  }
+}
+.sidebar-logo{
+  fill:var(--sidebar-font-color);
+  height:180px;
+  padding: 50px 30px;
+  justify-content: center;
 }

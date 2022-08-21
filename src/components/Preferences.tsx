@@ -26,6 +26,7 @@ export default function Preferences(): JSX.Element {
                                 {
                                     name: 'Theme',
                                     child: (
+
                                         <select
                                             value={useAppSelector((state) => state.preferences.theme)}
                                             onChange={(evt) => dispatch(setTheme({theme: evt.target.value as Theme}))}
