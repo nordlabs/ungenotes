@@ -71,6 +71,29 @@ const createWindow = (): void => {
   }
 };
 
+// only allow one application window
+const gotTheLock = app.requestSingleInstanceLock();
+
+if (!gotTheLock) {
+  app.quit();
+} else {
+  app.on('second-instance', (event) => {
+    // Someone tried to run a second instance, we should focus our window.
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) {
+        mainWindow.restore();
+      }
+
+      mainWindow.focus();
+    }
+  });
+
+  // Create myWindow, load the rest of the app, etc...
+  app.whenReady().then(() => {
+    createWindow();
+  });
+}
+
 // create and set application menu
 const menu = Menu.buildFromTemplate([
   {
@@ -124,11 +147,6 @@ const menu = Menu.buildFromTemplate([
 ]);
 
 Menu.setApplicationMenu(menu);
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
 
 app.commandLine.appendSwitch('trace-warnings');
 
