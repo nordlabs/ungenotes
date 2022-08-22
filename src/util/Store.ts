@@ -101,4 +101,12 @@ export class Store<T extends {[key: string]: any} = {}> {
     private save(): void {
         fs.writeFileSync(this.path, JSON.stringify(this.data));
     }
+
+    /**
+     * Saves the store to the given location, synchronously.
+     * @param filePath the location of the file
+     */
+    public saveTo(filePath: string): void {
+        fs.writeFileSync(filePath, JSON.stringify(this.data));
+    }
 }

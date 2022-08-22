@@ -10,6 +10,7 @@ import Contact from '../routes/Contact';
 import {LoadingScreen} from '../util/LoadingScreen';
 import ShortcutOverview from './ShortcutOverview';
 import UpdateNotifier from './UpdateNotifier';
+import {Toaster} from '../util/Toaster';
 
 export default function App(): JSX.Element {
     const sidebarOpened = useAppSelector(state => state.data.sidebarOpened);
@@ -25,6 +26,9 @@ export default function App(): JSX.Element {
     });
     ipcRenderer.on('hideLoadingScreen', () => {
         LoadingScreen.hide();
+    });
+    ipcRenderer.on('openToast', (evt, msg) => {
+        Toaster.success(msg);
     });
     ipcRenderer.on('openShortcutOverview', () => {
         const shortcutOverviewInput = document.getElementById('shortcut-overview-check') as HTMLInputElement;
