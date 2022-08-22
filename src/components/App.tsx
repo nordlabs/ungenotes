@@ -19,6 +19,7 @@ export default function App(): JSX.Element {
     ipcRenderer.removeAllListeners('navigateContact');
     ipcRenderer.removeAllListeners('showLoadingScreen');
     ipcRenderer.removeAllListeners('hideLoadingScreen');
+    ipcRenderer.removeAllListeners('openShortcutOverview');
 
 
     // register callbacks
