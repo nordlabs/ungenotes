@@ -30,6 +30,28 @@ export default function Category(props: { category: ICategory }): JSX.Element {
     };
     const [dnd, setDnd] = useState(initialDnDState);
 
+    function deleteCategory() {
+        if (confirm(`Die Kategorie '${props.category.title}' löschen?`)) {
+            const categoryIdx = categories.indexOf(props.category);
+            const nextCategoryIdx = (
+                categoryIdx === 0 ?
+                    (categories.length > 1 ? 1 : null) :
+                    categoryIdx > 0 ?
+                        categoryIdx - 1 :
+                        null
+            );
+            const nextCategory = nextCategoryIdx !== null ? categories[nextCategoryIdx] : null;
+
+            dispatch(removeCategory({category: props.category}));
+
+            if (nextCategory !== null) {
+                navigate(`/category/${nextCategory.id}`);
+            } else {
+                navigate('/');
+            }
+        }
+    }
+
     return (
         <div
             className={classNames('category')}
@@ -52,7 +74,114 @@ export default function Category(props: { category: ICategory }): JSX.Element {
                         newTitle: e.target.value
                     }))}
                 />
-                <DotsVerticalIcon className={classNames( 'h-7 self-center')} />
+
+
+                <div className="flex justify-center">
+                    <div>
+                        <div className="dropdown relative">
+                            <button
+                                className="
+          dropdown-toggle
+          px-6
+          py-2.5
+          transition
+          duration-150
+          ease-in-out
+          flex
+          items-center
+          whitespace-nowrap
+
+        "
+                                type="button"
+                                id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                onClick={() => {
+                                    const dropdown = document.getElementById('dropdown-menu');
+                                    if (dropdown.classList.contains('hidden')) {
+                                        dropdown.classList.remove('hidden');
+                                    } else {
+                                        dropdown.classList.add('hidden');
+                                    }
+
+                                }
+                                }
+                            >
+                                <DotsVerticalIcon className={classNames('h-7 self-center')}/>
+                            </button>
+                            <ul id={'dropdown-menu'}
+                                className="
+          dropdown-menu
+          min-w-max
+          absolute
+          hidden
+          bg-white
+          z-50
+          float-left
+          py-2
+          list-none
+          text-left
+          rounded-sm
+          shadow-lg
+          mt-1
+          hidden
+          m-0
+          bg-clip-padding
+          border-none
+        "
+                                aria-labelledby="dropdownMenuButton1"
+                            >
+                                <li>
+
+                                        <div
+                                            className="
+              dropdown-item
+              text-sm
+              py-2
+              px-4
+              block
+              w-full
+              whitespace-nowrap
+              bg-transparent
+              text-gray-700
+              hover:bg-gray-100
+            "
+                                            onClick={() =>{
+                                                addNote();
+                                                document.getElementById('dropdown-menu').classList.add('hidden');
+                                            }
+                                            }
+                                        >
+                                            Neue Notiz
+                                        </div>
+
+                                </li>
+                                <li>
+                                    <div
+                                        className="
+              dropdown-item
+              text-sm
+              py-2
+              px-4
+              block
+              w-full
+              whitespace-nowrap
+              bg-transparent
+              hover:bg-gray-100
+              text-red-600
+            "
+                                        onClick={()=>{
+                                            deleteCategory();
+                                            document.getElementById('dropdown-menu').classList.add('hidden');
+                                        }}
+
+                                    >Kategorie löschen</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
 
             </h2>
             {
@@ -130,35 +259,7 @@ export default function Category(props: { category: ICategory }): JSX.Element {
                 className={classNames('add-note')}
                 onClick={addNote}
             >
-                <button title={'Neue Notiz erstellen'}><PlusIcon className={iconStyle} />Notiz</button>
-            </div>
-            <div className={classNames(['flex', 'justify-end', 'text-red-600'])}>
-                <button
-                    title={'Kategorie löschen'}
-                    onClick={() => {
-                        if (confirm(`Die Kategorie '${props.category.title}' löschen?`)) {
-                            const categoryIdx = categories.indexOf(props.category);
-                            const nextCategoryIdx = (
-                                categoryIdx === 0 ?
-                                    (categories.length > 1 ? 1 : null) :
-                                    categoryIdx > 0 ?
-                                        categoryIdx - 1 :
-                                        null
-                            );
-                            const nextCategory = nextCategoryIdx !== null ? categories[nextCategoryIdx] : null;
-
-                            dispatch(removeCategory({category: props.category}));
-
-                            if (nextCategory !== null) {
-                                navigate(`/category/${nextCategory.id}`);
-                            } else {
-                                navigate('/');
-                            }
-                        }
-                    }}
-                >
-                    <TrashIcon className={iconStyle} />Löschen
-                </button>
+                <button title={'Neue Notiz erstellen'}><PlusIcon className={iconStyle}/>Notiz</button>
             </div>
         </div>
     );

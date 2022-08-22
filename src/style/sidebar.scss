@@ -91,8 +91,23 @@ $gunmetal: rgba(52, 58, 64, 1);
     }
   }
 
-  .check {
-    display: none;
+.sidebar{
+  ul li:hover a, ul li a.active {
+    padding-left: 50px!important;
+  }
+}
+
+
+ul li a.active {
+  font-weight: bold;
+}
+
+ul li.empty a {
+  opacity: 0.7;
+}
+
+.check {
+  display: none;
 
     &:checked {
       ~ {
@@ -253,4 +268,17 @@ $gunmetal: rgba(52, 58, 64, 1);
   .check:checked ~ label .cancel.cancel-right {
     right: 350px;
   }
+}
+
+.sidebar{
+  header{
+    display:flex;
+    justify-content: space-around;
+  }
+}
+.sidebar-logo{
+  fill:var(--sidebar-font-color);
+  height:180px;
+  padding: 50px 30px;
+  justify-content: center;
 }

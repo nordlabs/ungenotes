@@ -31,6 +31,7 @@ export default function Preferences(): JSX.Element {
                                     name: 'Theme',
                                     id: 'theme',
                                     child: (
+
                                         <select
                                             id={'theme'}
                                             value={useAppSelector((state) => state.preferences.theme)}

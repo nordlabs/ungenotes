@@ -20,3 +20,20 @@
     }
   }
 }
+
+.category-card{
+  background-color:var(--note-bg);
+  min-height:150px;
+  display:flex;
+  flex-direction:column;
+  justify-content: space-between;
+}
+
+#dropdown-menu{
+  right:20px;
+}
+
+.category-card-btn{
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+}
