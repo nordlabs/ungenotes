@@ -78,7 +78,6 @@ export default function Sidebar(): JSX.Element {
                     }
                     <li>
                         <a
-                            href={'#'}
                             onClick={(e) => {
                                 e.preventDefault();
                                 e.stopPropagation();
@@ -94,6 +93,7 @@ export default function Sidebar(): JSX.Element {
                                 }));
                                 navigate(`/category/${newId}`);
                             }}
+                            style={{cursor: 'pointer'}}
                         >
                             <PlusIcon className={iconStyle}/>Kategorie
                         </a>

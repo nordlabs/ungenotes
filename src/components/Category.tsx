@@ -80,109 +80,53 @@ export default function Category(props: { category: ICategory }): JSX.Element {
                     <div>
                         <div className="dropdown relative">
                             <button
-                                className="
-          dropdown-toggle
-          px-6
-          py-2.5
-          transition
-          duration-150
-          ease-in-out
-          flex
-          items-center
-          whitespace-nowrap
-
-        "
+                                className={classNames('dropdown-toggle', 'px-6', 'py-2.5', 'transition', 'duration-150', 'ease-in-out', 'flex', 'items-center', 'whitespace-nowrap')}
                                 type="button"
                                 id="dropdownMenuButton1"
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
                                 onClick={() => {
                                     const dropdown = document.getElementById('dropdown-menu');
+
                                     if (dropdown.classList.contains('hidden')) {
                                         dropdown.classList.remove('hidden');
                                     } else {
                                         dropdown.classList.add('hidden');
                                     }
-
-                                }
-                                }
+                                }}
                             >
                                 <DotsVerticalIcon className={classNames('h-7 self-center')}/>
                             </button>
                             <ul id={'dropdown-menu'}
-                                className="
-          dropdown-menu
-          min-w-max
-          absolute
-          hidden
-          bg-white
-          z-50
-          float-left
-          py-2
-          list-none
-          text-left
-          rounded-sm
-          shadow-lg
-          mt-1
-          hidden
-          m-0
-          bg-clip-padding
-          border-none
-        "
+                                className={classNames('dropdown-menu', 'min-w-max', 'absolute', 'hidden', 'bg-white', 'z-50', 'float-left', 'py-2', 'list-none', 'text-left', 'rounded-sm', 'shadow-lg', 'mt-1', 'hidden', 'm-0', 'bg-clip-padding', 'border-none')}
                                 aria-labelledby="dropdownMenuButton1"
                             >
                                 <li>
-
-                                        <div
-                                            className="
-              dropdown-item
-              text-sm
-              py-2
-              px-4
-              block
-              w-full
-              whitespace-nowrap
-              bg-transparent
-              text-gray-700
-              hover:bg-gray-100
-            "
-                                            onClick={() =>{
-                                                addNote();
-                                                document.getElementById('dropdown-menu').classList.add('hidden');
-                                            }
-                                            }
-                                        >
-                                            Neue Notiz
-                                        </div>
-
+                                    <div
+                                        className={classNames('dropdown-item', 'text-sm', 'py-2', 'px-4', 'block', 'w-full', 'whitespace-nowrap', 'bg-transparent', 'text-gray-700', 'hover:bg-gray-100', 'cursor-pointer')}
+                                        onClick={() =>{
+                                            addNote();
+                                            document.getElementById('dropdown-menu').classList.add('hidden');
+                                        }}
+                                    >
+                                        Neue Notiz
+                                    </div>
                                 </li>
                                 <li>
                                     <div
-                                        className="
-              dropdown-item
-              text-sm
-              py-2
-              px-4
-              block
-              w-full
-              whitespace-nowrap
-              bg-transparent
-              hover:bg-gray-100
-              text-red-600
-            "
+                                        className={classNames('dropdown-item', 'text-sm', 'py-2', 'px-4', 'block', 'w-full', 'whitespace-nowrap', 'bg-transparent', 'hover:bg-gray-100', 'text-red-600', 'cursor-pointer')}
                                         onClick={()=>{
                                             deleteCategory();
                                             document.getElementById('dropdown-menu').classList.add('hidden');
                                         }}
-
-                                    >Kategorie löschen</div>
+                                    >
+                                        Kategorie löschen
+                                    </div>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-
-
             </h2>
             {
                 (props.category.notes ?? []).map((n) => {
