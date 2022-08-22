@@ -9,6 +9,8 @@ import {ipcRenderer} from 'electron';
 import Contact from '../routes/Contact';
 import {LoadingScreen} from '../util/LoadingScreen';
 import Dashboard from './Dashboard';
+import ShortcutOverview from './ShortcutOverview';
+import UpdateNotifier from './UpdateNotifier';
 
 export default function App(): JSX.Element {
     const sidebarOpened = useAppSelector(state => state.data.sidebarOpened);
@@ -30,6 +32,13 @@ export default function App(): JSX.Element {
     ipcRenderer.on('hideLoadingScreen', () => {
         LoadingScreen.hide();
     });
+    ipcRenderer.on('openShortcutOverview', () => {
+        const shortcutOverviewInput = document.getElementById('shortcut-overview-check') as HTMLInputElement;
+
+        if (shortcutOverviewInput) {
+            shortcutOverviewInput.checked = true;
+        }
+    });
 
     return (
         <div>
@@ -48,9 +57,10 @@ export default function App(): JSX.Element {
                     </Route>
                     <Route path={'preferences'} element={<Preferences />} />
                     <Route path={'contact'} element={<Contact />} />
-
                 </Routes>
             </div>
+            <UpdateNotifier />
+            <ShortcutOverview />
         </div>
     );
 }

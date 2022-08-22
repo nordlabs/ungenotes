@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import {shell} from 'electron';
+import {VersionHelper} from '../util/VersionHelper';
 
 export default function Contact(): JSX.Element {
     return (
@@ -14,6 +15,3 @@ export default function Contact(): JSX.Element {
         </div>
     );
 }
-
-
-

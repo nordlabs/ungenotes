@@ -89,21 +89,15 @@ const menu = Menu.buildFromTemplate([
       {label: 'Vollbild', role: 'togglefullscreen',},
       {type: 'separator',},
       {label: 'Zeige Ladebildschirm', type: 'checkbox', click: (i) => mainWindow.webContents.send(i.checked ? 'showLoadingScreen' : 'hideLoadingScreen')},
-    ],
-  },
-  {
-    label: 'Fenster',
-    submenu: [
       {label: 'Minimieren', role: 'minimize',},
-      {label: 'Schließen', role: 'close',}
-    ]
+    ],
   },
   {
     label: 'Hilfe',
     role: 'help',
     submenu: [
       {label: 'Kontakt', click: () => mainWindow.webContents.send('navigateContact')},
-      {label: 'Tastenkombinationen',},
+      {label: 'Tastenkombinationen', click: () => mainWindow.webContents.send('openShortcutOverview')},
     ]
   }
 ]);

@@ -1,9 +1,6 @@
 import React from 'react';
 import {
     AdjustmentsIcon,
-    BookmarkIcon,
-    PencilAltIcon,
-    ClockIcon,
     ChatIcon,
     CollectionIcon
 } from '@heroicons/react/outline';
@@ -14,6 +11,7 @@ import {PlusIcon} from '@heroicons/react/solid';
 import {CategoryHelper} from '../util/CategoryHelper';
 import CategoryLink from './CategoryLink';
 import classNames from 'classnames';
+import {VersionHelper} from '../util/VersionHelper';
 
 export default function Sidebar(): JSX.Element {
     const iconStyle = 'h-7 w-7 pb-1 inline pr-3';
@@ -23,13 +21,13 @@ export default function Sidebar(): JSX.Element {
     const navigate = useNavigate();
 
     return (
-        <div className={'z-50'}>
-            <input type="checkbox" id="check" defaultChecked={sidebarOpened} />
-            <label htmlFor="check">
-                <p id="btn" onClick={() => dispatch(toggleSidebar())}>❯</p>
-                <p id="cancel" onClick={() => dispatch(toggleSidebar())}>❮</p>
+        <div className={classNames('z-50', 'sidebar')}>
+            <input type="checkbox" className={classNames('check')} id={'navbar-check'} defaultChecked={sidebarOpened} />
+            <label htmlFor={'navbar-check'}>
+                <p className={classNames('btn', 'btn-left')} onClick={() => dispatch(toggleSidebar())}>❯</p>
+                <p className={classNames('cancel', 'cancel-left')} onClick={() => dispatch(toggleSidebar())}>❮</p>
             </label>
-            <div className="sidebar">
+            <div className={classNames('sidebar-content', 'sidebar-content-left')}>
                 <header>
                     <svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px"
                          viewBox="0 0 83.6 105.5" className={"sidebar-logo"}>
@@ -60,6 +58,8 @@ export default function Sidebar(): JSX.Element {
 	c-0.6,0.3-1.3,0.9-2,1c-6.2,1.1-12.4,2.1-18.7,3C33.6,21,32.4,21,31.2,21C31.1,20.6,31,20.2,30.9,19.8z"/>
 </svg>
                 </header>
+                <small className={classNames('block', 'text-center', 'm-2')}>{VersionHelper.getVersionString()}</small>
+
                 <ul>
                     <li><NavLink className={(navData) => classNames({active: navData.isActive})} to={'/dashboard'}><CollectionIcon className={iconStyle}/>Dashboard</NavLink></li>
                     {/*<li><a href="#"><PencilAltIcon className={iconStyle}/>Notizen</a></li>*/}

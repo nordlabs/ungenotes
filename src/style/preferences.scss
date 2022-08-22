@@ -1,7 +1,8 @@
 .preferences {
-  input, select, select option {
+  input, select, select option, button {
     padding: 5px;
     border-radius: 5px;
+    background-color: var(--note-bg);
   }
 }
 
