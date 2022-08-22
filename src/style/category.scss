@@ -7,16 +7,45 @@
     cursor: pointer;
 
     button {
-      visibility: hidden;
-      border: 1px dashed grey;
+      opacity: 0.35;
       border-radius: 5px;
       padding: 5px 15px;
-      background-color: #f8f8f8;
       cursor: pointer;
+      border: 1px solid var(--secondary-color);
+      color: var(--font-color);
     }
 
     &:hover button {
-      visibility: visible;
+      opacity: 1;
     }
+  }
+}
+
+.category-card{
+  background-color:var(--note-bg);
+  min-height:150px;
+  display:flex;
+  flex-direction:column;
+  justify-content: space-between;
+
+  li{
+    list-style:none;
+  }
+}
+
+#dropdown-menu{
+  right:20px;
+}
+
+.category-card-btn{
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+}
+
+.overview-wrapper {
+  input, select, select option, button {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: var(--note-bg);
   }
 }

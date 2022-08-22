@@ -2,21 +2,29 @@
   "name": "ungenotes",
   "productName": "ungenotes",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Eine App zum Verwalten von Notizen - gehalten im Design von Simon Unge",
   "main": ".webpack/main",
   "scripts": {
-    "start": "electron-forge start",
+    "build:tailwind": "tailwindcss build src/tailwind.css -o src/tailwind.output.css",
+    "prestart": "yarn run build:tailwind",
+    "prebuild": "yarn run build:tailwind",
+    "start": "DEBUG=1 electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts,.tsx ."
   },
-  "keywords": [],
-  "author": "bent",
+  "keywords": [
+    "electron", "note", "open source"
+  ],
+  "author": "Bent Focken, Jennifer Horstmann",
   "license": "MIT",
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "src/icon/ungenotes_icon",
+        "extraResource": "src/icon/icon_128x128.png"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
@@ -44,6 +52,7 @@
           "@electron-forge/plugin-webpack",
           {
             "mainConfig": "./webpack.main.config.js",
+            "devContentSecurityPolicy": "default-src * self blob: data: gap:; style-src * self 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob: data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:;",
             "renderer": {
               "config": "./webpack.renderer.config.js",
               "entryPoints": [
@@ -87,11 +96,15 @@
     "webpack": "^5.55.1"
   },
   "dependencies": {
+    "@heroicons/react": "^1.0.4",
     "@reduxjs/toolkit": "^1.6.1",
     "electron-squirrel-startup": "^1.0.0",
     "path-browserify": "^1.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-redux": "^7.2.5"
+    "react-hot-toast": "^2.3.0",
+    "react-redux": "^7.2.5",
+    "react-router-dom": "6",
+    "tailwindcss": "^2.2.17"
   }
 }

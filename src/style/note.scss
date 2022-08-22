@@ -1,21 +1,44 @@
+.category{
+  h2{
+    margin-bottom: 30px;
+    input{
+      &:hover, &:active{
+        background-color:var(--category-bg);
+      }
+    }
+  }
+}
+
 .note {
   display: flex;
   flex-direction: column;
-  border: 1px solid grey;
-  border-radius: 5px;
-  padding: 8px 10px;
   margin-bottom: 10px;
   position: relative;
+  background-color:var(--note-bg);
+  padding: 1em;
+  border-radius:4px;
+
+  .move {
+    &:hover {
+      // fallback if grab unsupported
+      cursor: move;
+      cursor: grab;
+    }
+  }
 
   input, input:focus-visible, textarea {
     border: none;
     outline: none;
-    padding: 3px;
+    padding: 3px 10px;
     resize: none;
+    background-color:var(--note-bg);
+
+
 
     &.title {
-      font-weight: bold;
-      font-size: 18px;
+      font-weight: 600;
+      font-size: 20px;
+      letter-spacing:.8px;
     }
 
     &.description {
@@ -24,9 +47,14 @@
       height: auto;
     }
 
-    &.link {
-      color: #212f56;
+    &.link:not(.not-clickable) {
+      color: var(--accent-color);
       cursor: pointer;
+
+      &.empty {
+        height: 0;
+        padding: 0;
+      }
 
       &:hover {
         text-decoration: underline;
@@ -43,13 +71,17 @@
 
     span {
       visibility: hidden;
-      background-color: #f8f8f8;
       border-radius: 5px;
       padding: 8px;
     }
 
     &:hover span {
       visibility: visible;
+      color:red;
+    }
+
+    svg{
+      fill: red;
     }
   }
 }

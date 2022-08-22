@@ -12,4 +12,9 @@ module.exports = {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json']
   },
   target: 'electron-main',
+  output: {
+    // this was added for compatibility, see https://webpack.js.org/configuration/output/#outputhashfunction and
+    // https://nodejs.org/api/crypto.html#crypto_crypto_createhash_algorithm_options
+    hashFunction: 'xxhash64'
+  }
 };

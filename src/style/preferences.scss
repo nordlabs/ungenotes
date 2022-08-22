@@ -1,0 +1,13 @@
+.preferences {
+  input, select, select option, button {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: var(--note-bg);
+  }
+}
+
+.preference-list h2{
+  border-top: 1px solid;
+  padding-top: 30px;
+  margin-top:60px;
+}

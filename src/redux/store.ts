@@ -1,11 +1,13 @@
 import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
 import {baseListReducer} from './baseListSlice';
 import {dataSliceReducer} from './dataSlice';
+import {preferencesSliceReducer} from './preferencesSlice';
 
 export const store = configureStore({
     reducer: {
         baseList: baseListReducer,
         data: dataSliceReducer,
+        preferences: preferencesSliceReducer
     },
 });
 

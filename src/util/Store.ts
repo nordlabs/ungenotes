@@ -4,7 +4,7 @@ import * as path from 'path';
 
 export class Store<T extends {[key: string]: any} = {}> {
     private static instances: {[name: string]: Store} = {};
-    private static TIMEOUT_IN_S = 5;
+    private static TIMEOUT_IN_S = 2;
 
     private changeTimeout: NodeJS.Timeout;
     private readonly name: string;
@@ -61,6 +61,15 @@ export class Store<T extends {[key: string]: any} = {}> {
     }
 
     /**
+     * Saves all the managed stores, synchronously.
+     */
+    public static saveAll(): void {
+        for (const key in this.instances) {
+            this.instances[key].save();
+        }
+    }
+
+    /**
      * Schedules the save operation to be executed in TIMEOUT_IN_S
      * seconds. If already a timeout exists, it is cleared and
      * another one is started.
@@ -91,5 +100,13 @@ export class Store<T extends {[key: string]: any} = {}> {
      */
     private save(): void {
         fs.writeFileSync(this.path, JSON.stringify(this.data));
+    }
+
+    /**
+     * Saves the store to the given location, synchronously.
+     * @param filePath the location of the file
+     */
+    public saveTo(filePath: string): void {
+        fs.writeFileSync(filePath, JSON.stringify(this.data));
     }
 }
