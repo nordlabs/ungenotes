@@ -11,6 +11,7 @@ import {PlusIcon} from '@heroicons/react/solid';
 import {CategoryHelper} from '../util/CategoryHelper';
 import CategoryLink from './CategoryLink';
 import classNames from 'classnames';
+import {VersionHelper} from '../util/VersionHelper';
 
 export default function Sidebar(): JSX.Element {
     const iconStyle = 'h-7 w-7 pb-1 inline pr-3';
@@ -28,6 +29,7 @@ export default function Sidebar(): JSX.Element {
             </label>
             <div className={classNames('sidebar-content', 'sidebar-content-left')}>
                 <header>ungenotes</header>
+                <small className={classNames('block', 'text-center', 'm-2')}>{VersionHelper.getVersionString()}</small>
                 <ul>
                     <li><a href="#"><CollectionIcon className={iconStyle}/>Dashboard</a></li>
                     {/*<li><a href="#"><PencilAltIcon className={iconStyle}/>Notizen</a></li>*/}

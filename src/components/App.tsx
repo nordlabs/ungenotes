@@ -9,6 +9,7 @@ import {ipcRenderer} from 'electron';
 import Contact from '../routes/Contact';
 import {LoadingScreen} from '../util/LoadingScreen';
 import ShortcutOverview from './ShortcutOverview';
+import UpdateNotifier from './UpdateNotifier';
 
 export default function App(): JSX.Element {
     const sidebarOpened = useAppSelector(state => state.data.sidebarOpened);
@@ -45,6 +46,7 @@ export default function App(): JSX.Element {
                     <Route path={'contact'} element={<Contact />} />
                 </Routes>
             </div>
+            <UpdateNotifier />
             <ShortcutOverview />
         </div>
     );
