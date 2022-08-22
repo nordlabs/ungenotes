@@ -60,7 +60,9 @@ const createWindow = (): void => {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  if (process.env.DEBUG === '1') {
+    mainWindow.webContents.openDevTools();
+  }
 };
 
 // create and set application menu
