@@ -1,13 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classNames from 'classnames';
 import {useAppDispatch, useAppSelector} from '../util/hooks';
-import {setMinimizeLoadingScreenTime, setTheme} from '../redux/preferencesSlice';
+import {setMinimizeLoadingScreenTime, setTheme, setUpdateAvailable} from '../redux/preferencesSlice';
 import {Theme} from '../util/types';
+import {VersionHelper} from '../util/VersionHelper';
+import {shell} from 'electron';
 
 export default function Preferences(): JSX.Element {
     const captionTitleClasses = classNames('text-2xl');
     const tableClasses = classNames('w-full', 'mt-3');
     const dispatch = useAppDispatch();
+    const updateAvailable = useAppSelector((state) => state.preferences.updateAvailable);
+    const [searchingUpdates, setSearchingUpdates] = useState(false);
 
     return (
         <div className={classNames('preferences')}>
@@ -19,7 +23,7 @@ export default function Preferences(): JSX.Element {
             </div>
             <div className={classNames('mt-5 preference-list')}>
                 {
-                    [
+                    ([
                         {
                             title: 'Aussehen',
                             children: [
@@ -58,7 +62,49 @@ export default function Preferences(): JSX.Element {
                                 },
                             ],
                         },
-                    ].map((conf) => {
+                        {
+                            title: 'Updates',
+                            children: [
+                                {
+                                    name: 'Nach Updates suchen',
+                                    id: 'searchUpdates',
+                                    child: (
+                                        <button
+                                            id={'searchUpdates'}
+                                            onClick={() => {
+                                                setSearchingUpdates(true);
+
+                                                VersionHelper.checkForUpdates().then((u) => {
+                                                    dispatch(setUpdateAvailable({value: u}));
+                                                    setSearchingUpdates(false);
+                                                });
+                                            }}
+                                            disabled={searchingUpdates}
+                                        >
+                                            {searchingUpdates ? 'Suche...' : 'Jetzt suchen'}
+                                        </button>
+                                    ),
+                                    extraChild: (
+                                        updateAvailable
+                                            ? <tr>
+                                                <td colSpan={2}>
+                                                    <div className={classNames('border-2', 'p-2', 'rounded', 'mt-6')} style={{borderColor: 'var(--sidebar-font-color)'}}>
+                                                        <span className={classNames('font-bold', 'text-xl')}>Updates verfügbar!</span>&nbsp;
+                                                        <span
+                                                            style={{cursor: 'pointer'}}
+                                                            className={classNames('underline')}
+                                                            onClick={() => shell.openExternal(`${VersionHelper.repoUrl}releases/latest`)}>
+                                                            Hier herunterladen & installieren
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            : null
+                                    ),
+                                },
+                            ],
+                        },
+                    ] as Array<{title: string, children: Array<{name: string, id: string, child: JSX.Element, extraChild: JSX.Element}>}>).map((conf) => {
                         return (
                             <React.Fragment key={conf.title}>
                                 <h2 className={captionTitleClasses}>{conf.title}</h2>
@@ -67,12 +113,13 @@ export default function Preferences(): JSX.Element {
                                         {
                                             conf.children.map((child) => {
                                                 return (
-                                                    <tr key={child.name}>
-                                                        <td><label htmlFor={child.id}>{child.name}</label></td>
-                                                        <td>
-                                                            {child.child}
-                                                        </td>
-                                                    </tr>
+                                                    <React.Fragment key={child.name}>
+                                                        <tr>
+                                                            <td><label htmlFor={child.id}>{child.name}</label></td>
+                                                            <td>{child.child}</td>
+                                                        </tr>
+                                                        {child.extraChild}
+                                                    </React.Fragment>
                                                 );
                                             })
                                         }
