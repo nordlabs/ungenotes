@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Sidebar from './Sidebar';
 import {Navigate, Route, Routes, useNavigate} from 'react-router-dom';
 import CategoryRoute from '../routes/CategoryRoute';
@@ -11,6 +11,7 @@ import {LoadingScreen} from '../util/LoadingScreen';
 import Dashboard from './Dashboard';
 import ShortcutOverview from './ShortcutOverview';
 import UpdateNotifier from './UpdateNotifier';
+import {Toaster} from '../util/Toaster';
 
 export default function App(): JSX.Element {
     const sidebarOpened = useAppSelector(state => state.data.sidebarOpened);
@@ -23,23 +24,30 @@ export default function App(): JSX.Element {
 
 
     // register callbacks
-    ipcRenderer.on('navigateContact', () => {
-        navigate('/contact');
-    });
+    useEffect(
+        () => {
+            ipcRenderer.on('navigateContact', () => {
+                navigate('/contact');
+            });
+            ipcRenderer.on('showLoadingScreen', () => {
+                LoadingScreen.show();
+            });
+            ipcRenderer.on('hideLoadingScreen', () => {
+                LoadingScreen.hide();
+            });
+            ipcRenderer.on('openToast', (evt, msg) => {
+                Toaster.success(msg);
+            });
+            ipcRenderer.on('openShortcutOverview', () => {
+                const shortcutOverviewInput = document.getElementById('shortcut-overview-check') as HTMLInputElement;
 
-    ipcRenderer.on('showLoadingScreen', () => {
-        LoadingScreen.show();
-    });
-    ipcRenderer.on('hideLoadingScreen', () => {
-        LoadingScreen.hide();
-    });
-    ipcRenderer.on('openShortcutOverview', () => {
-        const shortcutOverviewInput = document.getElementById('shortcut-overview-check') as HTMLInputElement;
-
-        if (shortcutOverviewInput) {
-            shortcutOverviewInput.checked = true;
-        }
-    });
+                if (shortcutOverviewInput) {
+                    shortcutOverviewInput.checked = true;
+                }
+            });
+        },
+        [],
+    );
 
     return (
         <div>
