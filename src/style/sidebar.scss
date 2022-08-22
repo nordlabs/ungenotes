@@ -26,7 +26,7 @@ $gunmetal: rgba(52, 58, 64, 1);
     margin: 0;
     list-style: none;
     text-decoration: none;
-    color: var(--font-color);
+    color: var(--sidebar-font-color);
   }
 
   .sidebar-content-left {
@@ -53,6 +53,8 @@ $gunmetal: rgba(52, 58, 64, 1);
       text-align: center;
       color: var(--sidebar-font-color);
       user-select: none;
+      display:flex;
+      justify-content: space-around;
     }
 
     h6 {
@@ -270,15 +272,10 @@ ul li.empty a {
   }
 }
 
-.sidebar{
-  header{
-    display:flex;
-    justify-content: space-around;
-  }
-}
 .sidebar-logo{
   fill:var(--sidebar-font-color);
   height:180px;
   padding: 50px 30px;
   justify-content: center;
 }
+
