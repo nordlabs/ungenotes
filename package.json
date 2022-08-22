@@ -2,7 +2,7 @@
   "name": "ungenotes",
   "productName": "ungenotes",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Eine App zum Verwalten von Notizen - gehalten im Design von Simon Unge",
   "main": ".webpack/main",
   "scripts": {
     "build:tailwind": "tailwindcss build src/tailwind.css -o src/tailwind.output.css",
@@ -14,8 +14,10 @@
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts,.tsx ."
   },
-  "keywords": [],
-  "author": "bent, jenny",
+  "keywords": [
+    "electron", "note", "open source"
+  ],
+  "author": "Bent Focken, Jennifer Horstmann",
   "license": "MIT",
   "config": {
     "forge": {
