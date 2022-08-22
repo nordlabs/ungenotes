@@ -25,8 +25,10 @@ export default function Preferences(): JSX.Element {
                             children: [
                                 {
                                     name: 'Theme',
+                                    id: 'theme',
                                     child: (
                                         <select
+                                            id={'theme'}
                                             value={useAppSelector((state) => state.preferences.theme)}
                                             onChange={(evt) => dispatch(setTheme({theme: evt.target.value as Theme}))}
                                         >
@@ -44,8 +46,10 @@ export default function Preferences(): JSX.Element {
                             children: [
                                 {
                                     name: 'Ladebildschirmzeit minimieren',
+                                    id: 'minimizeLoadingScreenTime',
                                     child: (
                                         <input
+                                            id={'minimizeLoadingScreenTime'}
                                             type={'checkbox'}
                                             checked={useAppSelector((state) => state.preferences.minimizeLoadingScreenTime)}
                                             onChange={(evt) => dispatch(setMinimizeLoadingScreenTime({value: evt.target.checked}))}
@@ -64,7 +68,7 @@ export default function Preferences(): JSX.Element {
                                             conf.children.map((child) => {
                                                 return (
                                                     <tr key={child.name}>
-                                                        <td>{child.name}</td>
+                                                        <td><label htmlFor={child.id}>{child.name}</label></td>
                                                         <td>
                                                             {child.child}
                                                         </td>

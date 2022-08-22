@@ -33,7 +33,7 @@ $light-color: #F8FAFC;
   --note-bg: #FFFFFF;
   --sidebar-font-color:var(--font-color);
   --category-bg: rgb(255,255,255);
-
+  --shortcut-font-color: var(--font-color);
 }
 
 
@@ -46,7 +46,7 @@ $light-color: #F8FAFC;
   --accent-color: #99D2F8;
   --note-bg: #222222;
   --category-bg: rgb(0,0,0);
-
+  --shortcut-font-color: var(--font-color);
 }
 
 [data-theme="unge-bright"] {
@@ -57,6 +57,7 @@ $light-color: #F8FAFC;
   --bg-color: rgba(159, 215, 166, 0.9);
   --accent-color: #B94344;
   --category-bg: rgba(255,255,255,0.2);
+  --shortcut-font-color: var(--secondary-color);
 }
 
 [data-theme="unge-dark"] {
@@ -68,6 +69,7 @@ $light-color: #F8FAFC;
   --note-bg: #222222;
   --accent-color: rgba(159, 215, 166, 0.9);
   --category-bg: rgba(255,255,255,0.2);
+  --shortcut-font-color: var(--font-color);
 }
 
 

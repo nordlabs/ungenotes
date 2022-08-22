@@ -20,141 +20,237 @@ $slate-gray: rgba(108, 117, 125, 1);
 $davys-grey: rgba(73, 80, 87, 1);
 $gunmetal: rgba(52, 58, 64, 1);
 
-
-* {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  text-decoration: none;
-  color: var(--font-color);
-}
-
 .sidebar {
-  position: fixed;
-  left: -250px;
-  //left:0;
-  top:0;
-  width: 200px;
-  height: 100%;
-  border-right: 1px solid rgba(108, 117, 125, 0.1);
-  background: var(--secondary-color);
-  transition: all .5s ease;
-
-  header {
-    font-size: 22px;
-    font-weight: 800;
-    line-height: 100px;
-    text-align: center;
-    color: var(--sidebar-font-color);
-    user-select: none;
+  * {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+    color: var(--font-color);
   }
 
-  h6 {
-    letter-spacing:0.2em;
+  .sidebar-content-left {
+    left: -250px;
   }
 
-  h6, ul a {
-    display: block;
+  .sidebar-content-right {
+    right: -250px;
+  }
+
+  .sidebar-content {
+    position: fixed;
+    top:0;
+    width: 200px;
     height: 100%;
-    width: 100%;
-    line-height: 65px;
-    font-size: 10px;
-    padding-left: 40px;
-    box-sizing: border-box;
-    color: var(--sidebar-font-color);
-
-
-    &.link {
-      line-height: normal;
-      padding: 15px 5px 15px 40px;
-    }
-  }
-
-  ul a {
-    font-size: 16px;
-    border-top: 1px solid rgba(255,255,255,.1);
-    transition: .4s;
-
-    svg{
-      stroke: var(--sidebar-font-color);
-    }
-
-    i {
-      margin-right: 16px;
-    }
-  }
-}
-
-ul li:hover a, ul li a.active {
-  padding-left: 50px!important;
-}
-
-ul li a.active {
-  font-weight: bold;
-}
-
-ul li.empty a {
-  opacity: 0.7;
-}
-
-#check {
-  display: none;
-
-  &:checked {
-    ~ {
-      .sidebar {
-        left: 0;
-        overflow-y: auto;
-      }
-
-      label {
-        #btn {
-          left: 250px;
-          opacity: 0;
-          pointer-events: none;
-        }
-        #cancel {
-          left: 200px;
-        }
-      }
-
-      section {
-        margin-left: 250px;
-      }
-    }
-  }
-}
-
-label {
-  #btn {
-    position: absolute;
-    border: 1px solid rgba(108, 117, 125, 0.1);
-    cursor: pointer;
-    left: 0;
-    bottom: calc(100vh/2.2);
-    font-size: 35px;
-    padding: 6px 12px;
-    transition: all .5s;
-    background-color:var(--secondary-color);
-    color: var(--sidebar-font-color);
-  }
-
-  #cancel {
-    background-color:var(--secondary-color);
-    color: var(--sidebar-font-color);
-    position: absolute;
-    cursor: pointer;
-    left: -195px;
-    bottom: calc(100vh/2.2);
-    font-size: 28px;
-    padding: 12px 12px;
-    transition: all .5s ease;
-    border-top: 1px solid rgba(108, 117, 125, 0.1);
     border-right: 1px solid rgba(108, 117, 125, 0.1);
-    border-bottom: 1px solid rgba(108, 117, 125, 0.1);
+    background: var(--secondary-color);
+    transition: all .5s ease;
+
+    header {
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 100px;
+      text-align: center;
+      color: var(--sidebar-font-color);
+      user-select: none;
+    }
+
+    h6 {
+      letter-spacing:0.2em;
+    }
+
+    h6, ul a {
+      display: block;
+      height: 100%;
+      width: 100%;
+      line-height: 65px;
+      font-size: 10px;
+      padding-left: 40px;
+      box-sizing: border-box;
+      color: var(--sidebar-font-color);
+
+
+      &.link {
+        line-height: 140%;
+        padding: 15px 5px 15px 40px;
+      }
+    }
+
+    ul a {
+      font-size: 16px;
+      border-top: 1px solid rgba(255,255,255,.1);
+      transition: .4s;
+
+      svg{
+        stroke: var(--sidebar-font-color);
+      }
+
+      i {
+        margin-right: 16px;
+      }
+    }
+  }
+
+  .check {
+    display: none;
+
+    &:checked {
+      ~ {
+        .sidebar-content.sidebar-content-left {
+          left: 0;
+          overflow-y: auto;
+        }
+
+        .sidebar-content.sidebar-content-right {
+          right: 0;
+          overflow-y: auto;
+        }
+
+        label {
+          .btn {
+            &.btn-left {
+              left: 250px;
+            }
+
+            &.btn-right {
+              right: 250px;
+            }
+
+            opacity: 0;
+            pointer-events: none;
+          }
+
+          .cancel {
+            &.cancel-left {
+              left: 200px;
+            }
+
+            &.cancel-right {
+              right: 200px;
+            }
+
+            opacity: 1;
+          }
+        }
+
+        section {
+          margin-left: 250px;
+        }
+      }
+    }
+  }
+
+  label {
+    .btn {
+      border: 1px solid rgba(108, 117, 125, 0.1);
+      cursor: pointer;
+      bottom: calc(100vh/2.2);
+      font-size: 35px;
+      padding: 6px 12px;
+      transition: all .5s;
+      background-color:var(--secondary-color);
+      color: var(--sidebar-font-color);
+      position: fixed;
+
+      &.btn-left {
+        left: 0;
+      }
+
+      &.btn-right {
+        right: 0;
+      }
+    }
+
+    .cancel {
+      position: fixed;
+      opacity: 0;
+      background-color:var(--secondary-color);
+      color: var(--sidebar-font-color);
+      cursor: pointer;
+      bottom: calc(100vh/2.2);
+      font-size: 28px;
+      padding: 12px 12px;
+      transition: all .5s ease;
+      border-top: 1px solid rgba(108, 117, 125, 0.1);
+      border-right: 1px solid rgba(108, 117, 125, 0.1);
+      border-bottom: 1px solid rgba(108, 117, 125, 0.1);
+
+      &.cancel-left {
+        left: -195px;
+      }
+
+      &.cancel-right {
+        right: 0;
+      }
+    }
+  }
+
+  ul li:hover a, ul li a.active {
+    padding-left: 50px!important;
+  }
+
+  ul li a.active {
+    font-weight: bold;
+  }
+
+  ul li.empty a {
+    opacity: 0.7;
+  }
+
+  hr{
+    border: 1px solid rgba(255,255,255,.1);
   }
 }
 
-hr{
-  border: 1px solid rgba(255,255,255,.1);
+.shortcut-overview {
+  .shortcut-group-list {
+    margin-left: 8px;
+    margin-bottom: 15px;
+
+    &.span-list {
+      display: grid;
+      align-items: center;
+      text-align: center;
+
+      &.span-list-4 {
+        grid-template-columns: auto auto auto auto;
+      }
+
+      &.span-list-2 {
+        grid-template-columns: auto auto;
+      }
+    }
+
+    color: var(--sidebar-font-color);
+
+    span {
+      margin: 4px;
+      color: var(--sidebar-font-color);
+
+      &.name {
+        text-align: left;
+      }
+
+      &.key {
+        padding: 7px 5px;
+        color: var(--shortcut-font-color);
+        background-color: var(--bg-color);
+        border: 1px solid var(--sidebar-font-color);
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .shortcut-group-name {
+    margin-top: 10px;
+  }
+
+  .sidebar-content {
+    width: 350px;
+    right: -400px
+  }
+
+  .check:checked ~ label .cancel.cancel-right {
+    right: 350px;
+  }
 }
