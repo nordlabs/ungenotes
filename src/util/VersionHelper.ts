@@ -3,7 +3,7 @@ import {Toaster} from './Toaster';
 export class VersionHelper {
     private static _majorVersion = 1;
     private static _minorVersion = 0;
-    private static _patchVersion = 0;
+    private static _patchVersion = 1;
 
     public static checkingInterval = 24*60*60;
 

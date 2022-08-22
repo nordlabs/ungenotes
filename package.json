@@ -1,7 +1,7 @@
 {
   "name": "ungenotes",
   "productName": "ungenotes",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Eine App zum Verwalten von Notizen - gehalten im Design von Simon Unge",
   "main": ".webpack/main",
   "scripts": {
