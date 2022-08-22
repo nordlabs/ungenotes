@@ -33,7 +33,7 @@ export const dataSlice = createSlice<
     initialState: {
         categories: store.get('categories') ?? [],
         tags: store.get('tags') ?? [],
-        sidebarOpened: store.get('sidebarOpened') === true,
+        sidebarOpened: store.get('sidebarOpened') !== false,
         selectedCategory: store.get('sidebarOpened') ?? null,
     },
     reducers: {
