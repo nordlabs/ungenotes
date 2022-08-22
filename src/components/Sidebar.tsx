@@ -1,9 +1,6 @@
 import React from 'react';
 import {
     AdjustmentsIcon,
-    BookmarkIcon,
-    PencilAltIcon,
-    ClockIcon,
     ChatIcon,
     CollectionIcon
 } from '@heroicons/react/outline';
@@ -23,13 +20,13 @@ export default function Sidebar(): JSX.Element {
     const navigate = useNavigate();
 
     return (
-        <div className={'z-50'}>
-            <input type="checkbox" id="check" defaultChecked={sidebarOpened} />
-            <label htmlFor="check">
-                <p id="btn" onClick={() => dispatch(toggleSidebar())}>❯</p>
-                <p id="cancel" onClick={() => dispatch(toggleSidebar())}>❮</p>
+        <div className={classNames('z-50', 'sidebar')}>
+            <input type="checkbox" className={classNames('check')} id={'navbar-check'} defaultChecked={sidebarOpened} />
+            <label htmlFor={'navbar-check'}>
+                <p className={classNames('btn', 'btn-left')} onClick={() => dispatch(toggleSidebar())}>❯</p>
+                <p className={classNames('cancel', 'cancel-left')} onClick={() => dispatch(toggleSidebar())}>❮</p>
             </label>
-            <div className="sidebar">
+            <div className={classNames('sidebar-content', 'sidebar-content-left')}>
                 <header>ungenotes</header>
                 <ul>
                     <li><a href="#"><CollectionIcon className={iconStyle}/>Dashboard</a></li>
