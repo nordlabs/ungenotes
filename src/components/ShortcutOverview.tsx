@@ -24,6 +24,10 @@ export default function ShortcutOverview(): JSX.Element {
                                         name: 'Anwendung schließen',
                                         keys: ['Strg', 'Q'],
                                     },
+                                    {
+                                        name: 'Daten Exportieren',
+                                        keys: ['Strg', 'E'],
+                                    },
                                 ],
                             },
                             {
